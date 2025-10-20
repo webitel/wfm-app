@@ -12,7 +12,7 @@ import { createUserAccessControl } from './app/composables/useUserAccessControl'
 import i18n from './app/locale/i18n'
 import { webitelUiOptions, webitelUiPlugin } from './app/plugins/webitel-ui'
 import router from './app/router'
-// import store from './app/store'
+import store from './app/store'
 import { useUserinfoStore } from './modules/userinfo/store/userinfoStore'
 
 const setTokenFromUrl = (): void => {
@@ -43,7 +43,7 @@ setApiServicesConfig({
 })
 
 const initApp = async () => {
-  const app = createApp(App).use(i18n).use(pinia).use(webitelUiPlugin, webitelUiOptions)
+  const app = createApp(App).use(store).use(i18n).use(pinia).use(webitelUiPlugin, webitelUiOptions)
 
   const { initialize, routeAccessGuard } = useUserinfoStore()
   try {
@@ -64,8 +64,8 @@ const initApp = async () => {
   try {
     setTokenFromUrl()
     config = await fetchConfig()
-    // store.commit('SET_ROUTER', router)
-    // await store.dispatch('OPEN_SESSION')
+    store.commit('SET_ROUTER', router)
+    await store.dispatch('OPEN_SESSION')
   } catch (err) {
     console.error('before app mount error:', err)
   } finally {
