@@ -1,14 +1,16 @@
 <template>
   <main class="object-wrap">
+
     <section class="object">
       <wt-app-header v-if="!shouldHideHeader">
         <wt-notifications-bar />
-        <wt-navigation-bar
-          :current-app="currentApp"
-          :nav="accessibleNav"
-          :dark-mode="darkMode"
-          :logo-route="StartPageRoutePaths.TheStartPage"
-        />
+<!--        <wt-navigation-bar-->
+<!--          :current-app="currentApp"-->
+<!--          :nav="accessibleNav"-->
+<!--          :dark-mode="darkMode"-->
+<!--          :logo-route="StartPageRoutePaths.TheStartPage"-->
+<!--        />-->
+<!--        TODO Need add logo to wt-navigation-bar for WFM-->
         <wt-logo
           :dark-mode="darkMode"
           :logo-href="startPageHref"
@@ -34,15 +36,14 @@
 </template>
 
 <script setup>
-import { WtNavigationBar } from '@webitel/ui-sdk/components';
 import CrmSections from '@webitel/ui-sdk/src/enums/WebitelApplications/CrmSections.enum';
 import WebitelApplications from '@webitel/ui-sdk/src/enums/WebitelApplications/WebitelApplications.enum';
 import WtDarkModeSwitcher from '@webitel/ui-sdk/src/modules/Appearance/components/wt-dark-mode-switcher.vue';
+import { storeToRefs } from 'pinia';
 import { computed, inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
-import { storeToRefs } from 'pinia';
 
 import StartPageRoutePaths from '../../modules/start-page/router/internals/start-page-route-paths';
 import { useNavStore } from '../../modules/start-page/stores/navStore';

@@ -2,11 +2,10 @@
   <wt-start-page :nav="nav" :app-logo="logo" :dark-mode="darkMode" />
 </template>
 
-<script setup>
-import { WtStartPage } from '@webitel/ui-sdk/components';
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-import { storeToRefs } from 'pinia';
 
 import LogoDark from '../assets/crm-logo-dark.svg';
 import LogoLight from '../assets/crm-logo-light.svg';

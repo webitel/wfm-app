@@ -2,7 +2,7 @@ import WebitelApplications from '@webitel/ui-sdk/src/enums/WebitelApplications/W
 import UserinfoStoreModule from '@webitel/ui-sdk/src/modules/Userinfo/store/UserinfoStoreModule';
 
 const state = {
-  thisApp: WebitelApplications.CRM,
+  thisApp: 'WFM', // TODO Implement App to enum WebitelApplications
 };
 
 const getters = {
