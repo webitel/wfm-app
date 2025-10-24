@@ -6,6 +6,10 @@ import {
   type RouteRecordRaw,
 } from 'vue-router';
 
+import agentsRoutes from '@/modules/agents/router';
+import mySchedulesRoutes from '@/modules/mySchedules/router';
+import schedulesRoutes from '@/modules/schedules/router';
+
 import startPageRoutes from '../../modules/start-page/router';
 import TheWfmWorkspace from '../components/the-wfm-workspace.vue';
 import AccessDenied from '../components/utils/access-denied-component.vue';
@@ -20,6 +24,9 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: checkAppAccess,
     children: [
       ...startPageRoutes,
+      ...mySchedulesRoutes,
+      ...schedulesRoutes,
+      ...agentsRoutes
     ],
   },
   {

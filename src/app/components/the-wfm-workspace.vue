@@ -4,13 +4,12 @@
     <section class="object">
       <wt-app-header v-if="!shouldHideHeader">
         <wt-notifications-bar />
-<!--        <wt-navigation-bar-->
-<!--          :current-app="currentApp"-->
-<!--          :nav="accessibleNav"-->
-<!--          :dark-mode="darkMode"-->
-<!--          :logo-route="StartPageRoutePaths.TheStartPage"-->
-<!--        />-->
-<!--        TODO Need add logo to wt-navigation-bar for WFM-->
+        <wt-navigation-bar
+          :current-app="'crm'"
+          :nav="accessibleNav"
+          :dark-mode="darkMode"
+          :logo-route="StartPageRoutePaths.TheStartPage"
+        />
         <wt-logo
           :dark-mode="darkMode"
           :logo-href="startPageHref"
@@ -36,7 +35,6 @@
 </template>
 
 <script setup>
-import CrmSections from '@webitel/ui-sdk/src/enums/WebitelApplications/CrmSections.enum';
 import WebitelApplications from '@webitel/ui-sdk/src/enums/WebitelApplications/WebitelApplications.enum';
 import WtDarkModeSwitcher from '@webitel/ui-sdk/src/modules/Appearance/components/wt-dark-mode-switcher.vue';
 import { storeToRefs } from 'pinia';
@@ -66,9 +64,6 @@ const shouldHideHeader = computed(() => !!route.meta.hideHeader);
 const { t } = useI18n();
 
 const startPageHref = computed(() => import.meta.env.VITE_START_PAGE_URL);
-
-// Initialize nav, if not initialized yet
-navStore.initializeNav();
 
 const { nav } = storeToRefs(navStore);
 
@@ -125,7 +120,7 @@ async function logoutUser() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .object-wrap {
   display: flex;
   width: 100%;

@@ -54,8 +54,6 @@ const initApp = async () => {
     console.error('Error initializing app', err)
   }
 
-  console.log('router', router)
-
   app.use(router)
 
   return app
