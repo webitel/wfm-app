@@ -1,5 +1,5 @@
 <template>
-  <wt-start-page :nav="nav"  :dark-mode="darkMode" />
+  <wt-start-page :nav="nav" :app-logo="logo" :dark-mode="darkMode" />
 </template>
 
 <script setup lang="ts">
@@ -7,8 +7,14 @@ import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
-import { useNavStore } from '../stores/navStore';
+import LogoDark from '../assets/wfm-logo-dark.svg';
+import LogoLight from '../assets/wfm-logo-light.svg';
+import { useNavStore } from '../stores/navStore'
 
+const logo = {
+  light: LogoLight,
+  dark: LogoDark,
+};
 const store = useStore();
 const navStore = useNavStore();
 

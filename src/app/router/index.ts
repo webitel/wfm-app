@@ -7,9 +7,9 @@ import {
 } from 'vue-router';
 
 import agentsRoutes from '@/modules/agents/router';
-import mySchedulesRoutes from '@/modules/mySchedules/router';
 import schedulesRoutes from '@/modules/schedules/router';
 
+import mySchedulesRoutes from '../../modules/my-schedules/router';
 import startPageRoutes from '../../modules/start-page/router';
 import TheWfmWorkspace from '../components/the-wfm-workspace.vue';
 import AccessDenied from '../components/utils/access-denied-component.vue';

@@ -1,12 +1,15 @@
 import { WfmSections } from '@webitel/ui-sdk/enums';
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useUserinfoStore } from '../../userinfo/store/userinfoStore';
+import WfmAgentsDark from '../assets/wfm-agents-dark.svg'
 import WfmAgentsLight from '../assets/wfm-agents-light.svg'
-import WfmMySchedulesLight from '../assets/wfm-mySchedules-light.svg'
+import WfmMySchedulesDark from '../assets/wfm-my-schedules-dark.svg'
+import WfmMySchedulesLight from '../assets/wfm-my-schedules-light.svg'
+import WfmSchedulesDark from '../assets/wfm-schedules-dark.svg'
 import WfmSchedulesLight from '../assets/wfm-schedules-light.svg'
 
 export const useNavStore = defineStore('nav', () => {
@@ -38,7 +41,7 @@ export const useNavStore = defineStore('nav', () => {
           disabled: !hasMySchedulesAccess,
           images: {
             light: WfmMySchedulesLight,
-            dark: WfmMySchedulesLight,
+            dark: WfmAgentsDark,
           },
         },
         {
@@ -49,7 +52,7 @@ export const useNavStore = defineStore('nav', () => {
           disabled: !hasAgentsAccess,
           images: {
             light: WfmSchedulesLight,
-            dark: WfmSchedulesLight,
+            dark: WfmMySchedulesDark,
           },
         },
         {
@@ -60,7 +63,7 @@ export const useNavStore = defineStore('nav', () => {
           disabled: !hasSchedulesAccess,
           images: {
             light: WfmAgentsLight,
-            dark: WfmAgentsLight,
+            dark: WfmSchedulesDark,
           }
         }
       ]

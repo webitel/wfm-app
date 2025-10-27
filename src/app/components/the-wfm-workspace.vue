@@ -5,7 +5,7 @@
       <wt-app-header v-if="!shouldHideHeader">
         <wt-notifications-bar />
         <wt-navigation-bar
-          :current-app="'crm'"
+          :current-app="currentApp"
           :nav="accessibleNav"
           :dark-mode="darkMode"
           :logo-route="StartPageRoutePaths.TheStartPage"
@@ -55,6 +55,7 @@ const store = useStore();
 const navStore = useNavStore();
 
 const userinfo = computed(() => store.state.userinfo);
+
 const currentApp = userinfo.value.thisApp;
 
 const checkAccess = computed(() => store.getters['userinfo/CHECK_APP_ACCESS']);
