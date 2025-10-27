@@ -1,6 +1,5 @@
-@use '@webitel/ui-sdk/src/css/main' as *;
 
-//disables scrollbar on 100vh auth on small laptops
+
 body {
   //@extend %typo-body-1;
   //@extend %wt-scrollbar;
@@ -35,7 +34,7 @@ body {
   box-sizing: border-box;
 }
 
-//reset ul styles
+
 ul {
   margin: 0;
   padding: 0;
@@ -64,23 +63,25 @@ a {
 
 .wt-page-wrapper {
   width: 100%;
+}
 
-  &__main {
-    display: flex;
-    flex-grow: 1;
-    min-height: 0;
-    max-height: 100%;
-  }
+.wt-page-wrapper__main {
+  display: flex;
+  flex-grow: 1;
+  min-height: 0;
+  max-height: 100%;
+}
 
-  .main-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
 
-    & > section {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-  }
+
+.wt-page-wrapper__main .main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.wt-page-wrapper__main .main-container > section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
