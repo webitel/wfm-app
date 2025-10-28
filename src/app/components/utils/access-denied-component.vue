@@ -11,7 +11,3 @@ function goToApplicationHub() {
   window.location.href = adminUrl;
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

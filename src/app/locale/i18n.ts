@@ -1,15 +1,14 @@
 import { createI18n } from 'vue-i18n'
 
-import datetimeFormats from './datetimeFormats.js'
-import en from './en/en.js'
-import es from './es/es.js'
-import kz from './kz/kz.js'
-import ro from './ro/ro.js'
-import ru from './ru/ru.js'
-import uk from './uk/uk.js'
-import pl from './pl/pl.js'
-import uz from './uz/uz.js'
-import vi from './vi/vi.js'
+import en from './en/en'
+import es from './es/es'
+import kz from './kz/kz'
+import pl from './pl/pl'
+import ro from './ro/ro'
+import ru from './ru/ru'
+import uk from './uk/uk'
+import uz from './uz/uz'
+import vi from './vi/vi'
 
 const messages = {
   en,
@@ -27,7 +26,6 @@ const i18n = createI18n({
   locale: 'en',
   fallbackLocale: 'en',
   messages,
-  datetimeFormats,
 })
 
 export default i18n

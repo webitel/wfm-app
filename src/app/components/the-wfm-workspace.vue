@@ -1,7 +1,6 @@
 <template>
-  <main class="object-wrap">
-
-    <section class="object">
+  <main>
+    <section>
       <wt-app-header v-if="!shouldHideHeader">
         <wt-notifications-bar />
         <wt-navigation-bar
@@ -35,11 +34,10 @@
 </template>
 
 <script setup>
-import WebitelApplications from '@webitel/ui-sdk/src/enums/WebitelApplications/WebitelApplications.enum';
+import { WebitelApplications } from '@webitel/ui-sdk/src/enums/index';
 import WtDarkModeSwitcher from '@webitel/ui-sdk/src/modules/Appearance/components/wt-dark-mode-switcher.vue';
 import { storeToRefs } from 'pinia';
 import { computed, inject } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 
@@ -61,8 +59,6 @@ const currentApp = userinfo.value.thisApp;
 const checkAccess = computed(() => store.getters['userinfo/CHECK_APP_ACCESS']);
 const darkMode = computed(() => store.getters['appearance/DARK_MODE']);
 const shouldHideHeader = computed(() => !!route.meta.hideHeader);
-
-const { t } = useI18n();
 
 const startPageHref = computed(() => import.meta.env.VITE_START_PAGE_URL);
 
@@ -122,25 +118,6 @@ async function logoutUser() {
 </script>
 
 <style scoped>
-.object-wrap {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-
-.object {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
-
-.object-content-wrap {
-  flex: 1;
-  min-height: 0;
-}
-
 .wt-dark-mode-switcher {
   margin-right: auto;
 }

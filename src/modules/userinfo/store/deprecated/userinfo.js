@@ -1,4 +1,4 @@
-import WebitelApplications from '@webitel/ui-sdk/src/enums/WebitelApplications/WebitelApplications.enum';
+import { WebitelApplications } from '@webitel/ui-sdk/src/enums/index';
 import UserinfoStoreModule from '@webitel/ui-sdk/src/modules/Userinfo/store/UserinfoStoreModule';
 
 const state = {

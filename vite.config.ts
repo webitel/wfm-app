@@ -20,13 +20,6 @@ export default ({ mode }) => {
       host: true,
       port: 8080,
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler', // "modern", "modern-compiler", "legacy",
-        },
-      },
-    },
     optimizeDeps: {
       // exclude: ['@webitel/ui-sdk'],
       include: ['clipboard-copy', 'deep-equal', 'deepmerge'],

@@ -1,11 +1,10 @@
 import { type RouteLocationNormalized } from 'vue-router';
 
-import store from '../../store';
+import { useUserinfoStore } from '@/modules/userinfo/store/userinfoStore.ts';
 
 export const checkAppAccess = () => {
-  const hasReadAccess = store.getters['userinfo/CHECK_APP_ACCESS'](
-    store.getters['userinfo/THIS_APP'],
-  );
+  // TODO Need to implement check read access from wfm app
+  const hasReadAccess = true
   if (hasReadAccess) {
     return true;
   } else {
@@ -14,10 +13,9 @@ export const checkAppAccess = () => {
 };
 
 export const checkRouteAccess = (to: RouteLocationNormalized) => {
-  // has Role Section Access AND (Select role permissions || ObAC permissions access)
-  const hasReadAccess =
-    store.getters['userinfo/CHECK_OBJECT_ACCESS']({ route: to }) &&
-    store.getters['userinfo/HAS_READ_ACCESS']({ name: 'contacts' });
+  const userInfoStore = useUserinfoStore()
+
+  const hasReadAccess = userInfoStore.routeAccessGuard(to)
   if (hasReadAccess) {
     return true;
   } else {
