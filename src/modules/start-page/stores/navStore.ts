@@ -41,7 +41,7 @@ export const useNavStore = defineStore('nav', () => {
           disabled: !hasMySchedulesAccess,
           images: {
             light: WfmMySchedulesLight,
-            dark: WfmAgentsDark,
+            dark: WfmMySchedulesDark,
           },
         },
         {
@@ -52,7 +52,7 @@ export const useNavStore = defineStore('nav', () => {
           disabled: !hasAgentsAccess,
           images: {
             light: WfmSchedulesLight,
-            dark: WfmMySchedulesDark,
+            dark: WfmSchedulesDark,
           },
         },
         {
@@ -63,7 +63,7 @@ export const useNavStore = defineStore('nav', () => {
           disabled: !hasSchedulesAccess,
           images: {
             light: WfmAgentsLight,
-            dark: WfmSchedulesDark,
+            dark: WfmAgentsDark,
           }
         }
       ]

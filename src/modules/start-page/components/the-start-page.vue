@@ -4,8 +4,8 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
-import { useStore } from 'vuex';
+
+import { useAppearanceStore } from '@/modules/appearance/store/appearanceStore'
 
 import LogoDark from '../assets/wfm-logo-dark.svg';
 import LogoLight from '../assets/wfm-logo-light.svg';
@@ -15,10 +15,10 @@ const logo = {
   light: LogoLight,
   dark: LogoDark,
 };
-const store = useStore();
 const navStore = useNavStore();
+const appearanceStore = useAppearanceStore()
 
-const darkMode = computed(() => store.getters['appearance/DARK_MODE']);
+const { darkMode } = storeToRefs(appearanceStore)
 
 const { nav } = storeToRefs(navStore);
 </script>

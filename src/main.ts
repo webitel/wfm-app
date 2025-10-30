@@ -2,6 +2,7 @@ import './app/assets/icons/sprite'
 import './app/css/main.css'
 
 import { setConfig as setApiServicesConfig } from '@webitel/api-services'
+import { WebitelApplications } from '@webitel/ui-sdk/enums';
 import { eventBus } from '@webitel/ui-sdk/scripts'
 import { configureZod } from '@webitel/ui-sdk/validations'
 import { createPinia } from 'pinia'
@@ -12,7 +13,6 @@ import { createUserAccessControl } from './app/composables/useUserAccessControl'
 import i18n from './app/locale/i18n'
 import { webitelUiOptions, webitelUiPlugin } from './app/plugins/webitel-ui'
 import router from './app/router'
-import store from './app/store'
 import { useUserinfoStore } from './modules/userinfo/store/userinfoStore'
 
 const setTokenFromUrl = (): void => {
@@ -43,11 +43,12 @@ setApiServicesConfig({
 })
 
 const initApp = async () => {
-  const app = createApp(App).use(store).use(i18n).use(pinia).use(webitelUiPlugin, webitelUiOptions)
+  const app = createApp(App).use(i18n).use(pinia).use(webitelUiPlugin, webitelUiOptions)
 
-  const { initialize, routeAccessGuard } = useUserinfoStore()
+  const { initialize, routeAccessGuard, setApplicationName } = useUserinfoStore()
   try {
     await initialize()
+    setApplicationName(WebitelApplications.WFM)
     createUserAccessControl(useUserinfoStore)
     router.beforeEach(routeAccessGuard)
   } catch (err) {
@@ -64,8 +65,6 @@ const initApp = async () => {
   try {
     setTokenFromUrl()
     config = await fetchConfig()
-    store.commit('SET_ROUTER', router)
-    await store.dispatch('OPEN_SESSION')
   } catch (err) {
     console.error('before app mount error:', err)
   } finally {
