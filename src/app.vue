@@ -3,16 +3,17 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, provide } from "vue";
+import { storeToRefs } from 'pinia';
+import { onMounted, provide } from "vue";
 import { useI18n } from "vue-i18n";
-import { useStore } from 'vuex';
+
+import { useAppearanceStore } from '@/modules/appearance/store/appearanceStore.ts';
 
 const { locale, fallbackLocale } = useI18n();
 
-const store = useStore();
+const appearanceStore = useAppearanceStore()
 
-const darkMode = computed(() => store.getters['appearance/DARK_MODE']);
-
+const { darkMode } = storeToRefs(appearanceStore)
 provide('darkMode', darkMode);
 
 function setLanguage() {

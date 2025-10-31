@@ -43,12 +43,11 @@ setApiServicesConfig({
 })
 
 const initApp = async () => {
-  const app = createApp(App).use(i18n).use(pinia).use(webitelUiPlugin, webitelUiOptions)
+  const app = createApp(App).use(i18n).use(pinia)
 
-  const { initialize, routeAccessGuard, setApplicationName } = useUserinfoStore()
+  const { initialize, routeAccessGuard } = useUserinfoStore()
   try {
-    await initialize()
-    setApplicationName(WebitelApplications.WFM)
+    await initialize(WebitelApplications.WFM)
     createUserAccessControl(useUserinfoStore)
     router.beforeEach(routeAccessGuard)
   } catch (err) {
@@ -56,6 +55,7 @@ const initApp = async () => {
   }
 
   app.use(router)
+  app.use(webitelUiPlugin, webitelUiOptions)
 
   return app
 }
