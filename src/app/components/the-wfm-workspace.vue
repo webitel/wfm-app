@@ -33,11 +33,10 @@ import { storeToRefs } from 'pinia'
 import { computed, inject } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { useAppearanceStore } from '@/modules/appearance/store/appearanceStore'
-import { useUserinfoStore } from '@/modules/userinfo/store/userinfoStore'
-
+import { useAppearanceStore } from '../../modules/appearance/store/appearanceStore'
 import StartPageRoutePaths from '../../modules/start-page/router/internals/start-page-route-paths'
 import { useNavStore } from '../../modules/start-page/stores/navStore'
+import { useUserinfoStore } from '../../modules/userinfo/store/userinfoStore'
 
 const route = useRoute()
 const release = process.env.npm_package_version

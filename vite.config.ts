@@ -26,7 +26,6 @@ export default ({ mode }) => {
     },
     resolve: {
       alias: {
-        '@': resolve(__dirname, 'src'),
         'lodash/fp': 'lodash-es',
         lodash: 'lodash-es',
         '@aliasedDeps/api-services/axios': resolve(__dirname, 'src/app/api/instance'),

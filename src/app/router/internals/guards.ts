@@ -1,7 +1,7 @@
 import { WebitelApplications } from '@webitel/ui-sdk/enums';
 import { type RouteLocationNormalized } from 'vue-router';
 
-import { useUserinfoStore } from '@/modules/userinfo/store/userinfoStore';
+import { useUserinfoStore } from '../../../modules/userinfo/store/userinfoStore';
 
 export const checkAppAccess = () => {
   const userInfoStore = useUserinfoStore()
