@@ -48,7 +48,7 @@ const navStore = useNavStore()
 const userInfoStore = useUserinfoStore();
 const appearanceStore = useAppearanceStore()
 
-const { logoutUser, checkAppAccess } = userInfoStore;
+const { logoutUser, hasApplicationVisibility } = userInfoStore;
 const { setTheme } = appearanceStore
 const { userInfo, thisApp } = storeToRefs(userInfoStore);
 const { darkMode } = storeToRefs(appearanceStore)
@@ -95,7 +95,7 @@ const apps = computed(() => {
 
   const allApps = [admin, supervisor, agent, history, audit, crm]
   if (config?.ON_SITE) allApps.push(grafana)
-  return allApps.filter(({ name }) => checkAppAccess(name));
+  return allApps.filter(({ name }) => hasApplicationVisibility(name));
 })
 
 function settings() {

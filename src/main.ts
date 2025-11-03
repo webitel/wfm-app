@@ -47,7 +47,7 @@ const initApp = async () => {
 
   const { initialize, routeAccessGuard } = useUserinfoStore()
   try {
-    await initialize(WebitelApplications.WFM)
+    await initialize()
     createUserAccessControl(useUserinfoStore)
     router.beforeEach(routeAccessGuard)
   } catch (err) {
