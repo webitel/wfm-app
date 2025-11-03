@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { WebitelApplications } from '@webitel/ui-sdk/src/enums/index'
+import { WebitelApplications } from '@webitel/ui-sdk/enums';
 import WtDarkModeSwitcher from '@webitel/ui-sdk/src/modules/Appearance/components/wt-dark-mode-switcher.vue'
 import { storeToRefs } from 'pinia'
 import { computed, inject } from 'vue'
@@ -50,8 +50,10 @@ const appearanceStore = useAppearanceStore()
 
 const { logoutUser, hasApplicationVisibility } = userInfoStore;
 const { setTheme } = appearanceStore
-const { userInfo, thisApp } = storeToRefs(userInfoStore);
+const { userInfo } = storeToRefs(userInfoStore);
 const { darkMode } = storeToRefs(appearanceStore)
+
+const thisApp = WebitelApplications.WFM
 
 const shouldHideHeader = computed(() => !!route.meta.hideHeader)
 

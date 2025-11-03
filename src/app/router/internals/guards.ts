@@ -1,10 +1,12 @@
+import { WebitelApplications } from '@webitel/ui-sdk/enums';
 import { type RouteLocationNormalized } from 'vue-router';
 
-import { useUserinfoStore } from '@/modules/userinfo/store/userinfoStore.ts';
+import { useUserinfoStore } from '@/modules/userinfo/store/userinfoStore';
 
 export const checkAppAccess = () => {
-  // TODO Need to implement check read access from wfm app
-  const hasReadAccess = true
+  const userInfoStore = useUserinfoStore()
+
+  const hasReadAccess = userInfoStore.hasApplicationVisibility(WebitelApplications.WFM)
   if (hasReadAccess) {
     return true;
   } else {

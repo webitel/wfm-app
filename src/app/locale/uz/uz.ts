@@ -1,7 +1,6 @@
 import { WfmSections } from '@webitel/ui-sdk/enums';
 
 export default {
-  wfm: 'WFM',
   startPage: {
     [WfmSections.MySchedules]: {
       name: 'Mening jadvalarim',
