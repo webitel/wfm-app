@@ -6,10 +6,9 @@ import {
   type RouteRecordRaw,
 } from 'vue-router';
 
-import agentsRoutes from '@/modules/agents/router';
-import schedulesRoutes from '@/modules/schedules/router';
-
+import agentsRoutes from '../../modules/agents/router';
 import mySchedulesRoutes from '../../modules/my-schedules/router';
+import schedulesRoutes from '../../modules/schedules/router';
 import startPageRoutes from '../../modules/start-page/router';
 import TheWfmWorkspace from '../components/the-wfm-workspace.vue';
 import AccessDenied from '../components/utils/access-denied-component.vue';
