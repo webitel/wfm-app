@@ -6,7 +6,7 @@ import { useUserinfoStore } from '../../../modules/userinfo/store/userinfoStore'
 export const checkAppAccess = () => {
   const userInfoStore = useUserinfoStore()
 
-  const hasReadAccess = userInfoStore.hasApplicationVisibility(WebitelApplications.WFM)
+  const hasReadAccess = userInfoStore.hasApplicationVisibility(WebitelApplications.ADMIN)
   if (hasReadAccess) {
     return true;
   } else {
