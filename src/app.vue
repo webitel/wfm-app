@@ -7,7 +7,7 @@ import { storeToRefs } from 'pinia';
 import { onMounted, provide } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { useAppearanceStore } from './modules/appearance/store/appearanceStore.ts';
+import { useAppearanceStore } from './modules/appearance/store/appearanceStore';
 
 const { locale, fallbackLocale } = useI18n();
 
