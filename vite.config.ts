@@ -37,7 +37,13 @@ export default ({ mode }) => {
     },
     plugins: [
       vue(),
-      nodePolyfills(),
+      nodePolyfills({
+        // are needed for csv-parse
+        include: ['buffer'],
+        // globals: {
+        //   Buffer: true, // can also be 'build', 'dev', or false
+        // },
+      }),
       createSvgSpritePlugin({
         include: '**/sprite/*.svg',
       }),
