@@ -39,7 +39,7 @@ import { useNavStore } from '../../modules/start-page/stores/navStore'
 import { useUserinfoStore } from '../../modules/userinfo/store/userinfoStore'
 
 const route = useRoute()
-const release = process.env.npm_package_version
+const release = import.meta.env.npm_package_version
 const build = import.meta.env.VITE_BUILD_NUMBER
 const timestamp = import.meta.env.VITE_BUILD_TIMESTAMP
 

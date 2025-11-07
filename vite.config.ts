@@ -2,7 +2,6 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { defineConfig, loadEnv } from 'vite'
 import checker from 'vite-plugin-checker'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import createSvgSpritePlugin from 'vite-plugin-svg-sprite'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
@@ -37,13 +36,6 @@ export default ({ mode }) => {
     },
     plugins: [
       vue(),
-      nodePolyfills({
-        // are needed for csv-parse
-        include: ['buffer', 'stream'],
-        globals: {
-          Buffer: true, // can also be 'build', 'dev', or false
-        },
-      }),
       createSvgSpritePlugin({
         include: '**/sprite/*.svg',
       }),
