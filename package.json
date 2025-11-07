@@ -71,6 +71,11 @@
     "@esbuild/darwin-arm64": "^0.24.0",
     "@rollup/rollup-linux-x64-gnu": "4.9.5"
   },
+  "workspaces": [
+    "../webitel-ui-sdk",
+    "../webitel-ui-sdk/packages/ui-datalist",
+    "../webitel-ui-sdk/packages/api-services"
+  ],
   "overrides": {
     "vue-tsc": "^2.1.10",
     "vite": "^7.2.1"
