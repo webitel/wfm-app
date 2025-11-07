@@ -1,30 +1,75 @@
-import { globalIgnores } from 'eslint/config'
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
-import pluginVue from 'eslint-plugin-vue'
-import pluginVitest from '@vitest/eslint-plugin'
-import pluginOxlint from 'eslint-plugin-oxlint'
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import eslint from '@eslint/js'
+import eslintConfigPrettier from 'eslint-config-prettier'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import eslintPluginVue from 'eslint-plugin-vue'
+import globals from 'globals'
+import typescriptEslint from 'typescript-eslint'
 
-// To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
-// import { configureVueProject } from '@vue/eslint-config-typescript'
-// configureVueProject({ scriptLangs: ['ts', 'tsx'] })
-// More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
-
-export default defineConfigWithVueTs(
+export default typescriptEslint.config(
+  { ignores: ['*.d.ts', '**/coverage', '**/dist'] },
   {
-    name: 'app/files-to-lint',
-    files: ['**/*.{ts,mts,tsx,vue}'],
+    extends: [
+      eslint.configs.recommended,
+      ...typescriptEslint.configs.recommended,
+      ...eslintPluginVue.configs['flat/recommended'],
+    ],
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
+    files: ['**/*.{ts,js,vue,css,scss}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...[
+          'ref',
+          'reactive',
+          'watch',
+          'watchEffect',
+          'computed',
+          'onMounted',
+          'onUnmounted',
+        ].reduce((acc, key) => ({ ...acc, [key]: 'readonly' }), {}),
+      },
+      parserOptions: {
+        parser: typescriptEslint.parser,
+      },
+    },
+    rules: {
+      'no-console': ['error', { allow: ['warn', 'error'] }],
+      'vue/html-self-closing': [
+        'error',
+        {
+          html: {
+            void: 'always', // Enforce self-closing on void elements
+            normal: 'never', // Do not enforce self-closing on normal elements
+            component: 'always', // Enforce self-closing on custom components
+          },
+          svg: 'always', // Enforce self-closing on SVG elements
+          math: 'always', // Enforce self-closing on MathML elements
+        },
+      ],
+      'vue/no-template-shadow': 'error',
+      'vue/no-lone-template': 'error',
+      'vue/prefer-use-template-ref': 'error',
+      'vue/component-name-in-template-casing': [
+        'error',
+        'kebab-case',
+        {
+          registeredComponentsOnly: true,
+          ignores: [],
+        },
+      ],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          varsIgnorePattern: '^_', // Ignore unused variables starting with an underscore
+        },
+      ],
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+    },
   },
-
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
-
-  pluginVue.configs['flat/essential'],
-  vueTsConfigs.recommended,
-  
-  {
-    ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
-  },
-  ...pluginOxlint.configs['flat/recommended'],
-  skipFormatting,
+  eslintConfigPrettier,
 )
