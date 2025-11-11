@@ -15,4 +15,7 @@ export default {
       text: 'Сіз кестелерді жасай және басқара аласыз',
     },
   },
+  [WfmSections.Agents]: {
+    name: ({ linked }) => linked(`startPage.${WfmSections.Agents}.name`),
+  },
 }

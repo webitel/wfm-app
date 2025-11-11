@@ -14,6 +14,8 @@ export default {
       name: 'Расписания',
       text: 'Вы можете создавать и управлять расписаниями',
     },
-  }
-
+  },
+  [WfmSections.Agents]: {
+    name: ({ linked }) => linked(`startPage.${WfmSections.Agents}.name`),
+  },
 }

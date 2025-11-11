@@ -14,5 +14,8 @@ export default {
       name: 'Lịch trình',
       text: 'Bạn có thể tạo và quản lý lịch trình',
     },
-  }
+  },
+  [WfmSections.Agents]: {
+    name: ({ linked }) => linked(`startPage.${WfmSections.Agents}.name`),
+  },
 }

@@ -14,6 +14,8 @@ export default {
       name: 'Jadvalar',
       text: 'Siz jadval yaratishingiz va boshqarishingiz mumkin',
     },
-  }
-
+  },
+  [WfmSections.Agents]: {
+    name: ({ linked }) => linked(`startPage.${WfmSections.Agents}.name`),
+  },
 }

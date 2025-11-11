@@ -14,6 +14,8 @@ export default {
       name: 'Розклади',
       text: 'Ви можете створювати та керувати розкладами',
     },
-  }
-
+  },
+  [WfmSections.Agents]: {
+    name: ({ linked }) => linked(`startPage.${WfmSections.Agents}.name`),
+  },
 }

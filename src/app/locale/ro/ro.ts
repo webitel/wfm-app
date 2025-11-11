@@ -14,6 +14,8 @@ export default {
       name: 'Programe',
       text: 'Poți crea și gestiona programe',
     },
-  }
-
+  },
+  [WfmSections.Agents]: {
+    name: ({ linked }) => linked(`startPage.${WfmSections.Agents}.name`),
+  },
 }

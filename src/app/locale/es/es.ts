@@ -14,5 +14,8 @@ export default {
       name: 'Horarios',
       text: 'Puedes crear y gestionar horarios',
     },
-  }
+  },
+  [WfmSections.Agents]: {
+    name: ({ linked }) => linked(`startPage.${WfmSections.Agents}.name`),
+  },
 }

@@ -15,4 +15,7 @@ export default {
       text: 'You can create and manage schedules',
     },
   },
+  [WfmSections.Agents]: {
+    name: ({ linked }) => linked(`startPage.${WfmSections.Agents}.name`),
+  },
 }

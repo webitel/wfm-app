@@ -14,6 +14,8 @@ export default {
       name: 'Harmonogramy',
       text: 'Możesz tworzyć i zarządzać harmonogramami',
     },
-  }
-
+  },
+  [WfmSections.Agents]: {
+    name: ({ linked }) => linked(`startPage.${WfmSections.Agents}.name`),
+  },
 }
