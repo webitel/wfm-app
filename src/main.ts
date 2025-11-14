@@ -11,6 +11,7 @@ import { createApp } from 'vue'
 import App from './app.vue'
 import { createUserAccessControl } from './app/composables/useUserAccessControl'
 import i18n from './app/locale/i18n'
+import DayjsPlugin from './app/plugins/dayjs';
 import { webitelUiOptions, webitelUiPlugin } from './app/plugins/webitel-ui'
 import router from './app/router'
 import { useUserinfoStore } from './modules/userinfo/store/userinfoStore'
@@ -56,6 +57,7 @@ const initApp = async () => {
 
   app.use(router)
   app.use(webitelUiPlugin, webitelUiOptions)
+  app.use(DayjsPlugin);
 
   return app
 }
