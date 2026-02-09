@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'crm-workspace',
     redirect: { name: 'the-start-page' },
     component: TheWfmWorkspace,
-    meta: { app: WtApplication.Wfm },
+    meta: { WtApplication: WtApplication.Wfm },
     children: [
       ...startPageRoutes,
       ...mySchedulesRoutes,
