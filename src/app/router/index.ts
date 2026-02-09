@@ -12,7 +12,6 @@ import schedulesRoutes from '../../modules/schedules/router';
 import startPageRoutes from '../../modules/start-page/router';
 import TheWfmWorkspace from '../components/the-wfm-workspace.vue';
 import AccessDenied from '../components/utils/access-denied-component.vue';
-import { checkAppAccess } from './internals/guards';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,7 +19,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'crm-workspace',
     redirect: { name: 'the-start-page' },
     component: TheWfmWorkspace,
-    beforeEnter: checkAppAccess,
     children: [
       ...startPageRoutes,
       ...mySchedulesRoutes,
