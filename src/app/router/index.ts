@@ -5,6 +5,7 @@ import {
   type RouteLocationNormalized,
   type RouteRecordRaw,
 } from 'vue-router';
+import { WtApplication } from '@webitel/ui-sdk/enums';
 
 import agentsRoutes from '../../modules/agents/router';
 import mySchedulesRoutes from '../../modules/my-schedules/router';
@@ -19,6 +20,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'crm-workspace',
     redirect: { name: 'the-start-page' },
     component: TheWfmWorkspace,
+    meta: { app: WtApplication.Wfm },
     children: [
       ...startPageRoutes,
       ...mySchedulesRoutes,
