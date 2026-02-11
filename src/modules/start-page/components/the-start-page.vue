@@ -3,22 +3,22 @@
 </template>
 
 <script setup lang="ts">
-import WtStartPage from '@webitel/ui-sdk/src/components/on-demand/wt-start-page/components/wt-start-page.vue'
+import WtStartPage from '@webitel/ui-sdk/src/components/on-demand/wt-start-page/components/wt-start-page.vue';
 import { storeToRefs } from 'pinia';
 
-import { useAppearanceStore } from '../../appearance/store/appearanceStore'
+import { useAppearanceStore } from '../../appearance/store/appearanceStore';
 import LogoDark from '../assets/wfm-logo-dark.svg';
 import LogoLight from '../assets/wfm-logo-light.svg';
-import { useNavStore } from '../stores/navStore'
+import { useNavStore } from '../stores/navStore';
 
 const logo = {
-  light: LogoLight,
-  dark: LogoDark,
+	light: LogoLight,
+	dark: LogoDark,
 };
 const navStore = useNavStore();
-const appearanceStore = useAppearanceStore()
+const appearanceStore = useAppearanceStore();
 
-const { darkMode } = storeToRefs(appearanceStore)
+const { darkMode } = storeToRefs(appearanceStore);
 
 const { nav } = storeToRefs(navStore);
 </script>
