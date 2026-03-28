@@ -2,7 +2,7 @@ import './app/assets/icons/sprite';
 import './app/css/main.css';
 
 import { setConfig as setApiServicesConfig } from '@webitel/api-services';
-import { WebitelApplications } from '@webitel/ui-sdk/enums';
+import { WtApplication } from '@webitel/ui-sdk/enums';
 import { eventBus } from '@webitel/ui-sdk/scripts';
 import { configureZod } from '@webitel/ui-sdk/validations';
 import { createPinia } from 'pinia';

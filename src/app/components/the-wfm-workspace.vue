@@ -1,33 +1,40 @@
 <template>
-  <main>
-    <section>
-      <wt-app-header v-if="!shouldHideHeader">
-        <wt-notifications-bar />
-        <wt-navigation-bar
-          :current-app="thisApp"
-          :nav="accessibleNav"
-          :dark-mode="darkMode"
-          :logo-route="StartPageRoutePaths.TheStartPage"
-        />
-        <wt-logo :dark-mode="darkMode" :logo-href="startPageHref" />
-        <wt-dark-mode-switcher @changed-mode="setTheme" />
-        <wt-app-navigator :apps="apps" :current-app="thisApp" :dark-mode="darkMode" />
-        <wt-header-actions
-          :build-info="{ release, build, timestamp }"
-          :user="userInfo"
-          @logout="logoutUser"
-          @settings="settings"
-        />
-      </wt-app-header>
-      <div class="object-content-wrap">
-        <router-view />
-      </div>
-    </section>
-  </main>
+	<main>
+		<section>
+			<wt-app-header v-if="!shouldHideHeader">
+				<wt-notifications-bar />
+				<wt-navigation-bar
+					:current-app="thisApp"
+					:nav="accessibleNav"
+					:dark-mode="darkMode"
+					:logo-route="StartPageRoutePaths.TheStartPage"
+				/>
+				<wt-logo
+					:dark-mode="darkMode"
+					:logo-href="startPageHref"
+				/>
+				<wt-dark-mode-switcher @changed-mode="setTheme" />
+				<wt-app-navigator
+					:apps="apps"
+					:current-app="thisApp"
+					:dark-mode="darkMode"
+				/>
+				<wt-header-actions
+					:build-info="{ release, build, timestamp }"
+					:user="userInfo"
+					@logout="logoutUser"
+					@settings="settings"
+				/>
+			</wt-app-header>
+			<div class="object-content-wrap">
+				<router-view />
+			</div>
+		</section>
+	</main>
 </template>
 
 <script setup>
-import { WebitelApplications } from '@webitel/ui-sdk/enums';
+import { WtApplication } from '@webitel/ui-sdk/enums';
 import WtDarkModeSwitcher from '@webitel/ui-sdk/src/modules/Appearance/components/wt-dark-mode-switcher.vue';
 import { storeToRefs } from 'pinia';
 import { computed, inject } from 'vue';
@@ -116,6 +123,6 @@ function settings() {
 
 <style scoped>
 .wt-dark-mode-switcher {
-  margin-right: auto;
+	margin-right: auto;
 }
 </style>
