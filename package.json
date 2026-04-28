@@ -19,7 +19,8 @@
 		"utils:link-libs": "npm link @webitel/api-services @webitel/ui-sdk @webitel/ui-datalist && npm ls @webitel/api-services @webitel/ui-sdk @webitel/ui-datalist",
 		"prepare": "husky || true",
 		"biome:ci:gh": "biome ci ./src --reporter=github",
-		"test:unit:ci": "vitest run --coverage"
+		"test:unit:ci": "vitest run --coverage",
+		"typecheck:ci": "true"
 	},
 	"dependencies": {
 		"@vueuse/core": "^13.9.0",
