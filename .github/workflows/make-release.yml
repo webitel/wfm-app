@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'version, next_version - major.minor only (e.g., "26.4, 26.6")'
+        description: 'version, next_version - major.minor only (e.g., "26.04, 26.06")'
         required: true
         type: string
 
@@ -23,7 +23,7 @@ jobs:
           private-key: ${{ secrets.DELIVERY_BOT_APP_PEM }}
 
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
