@@ -1,5 +1,4 @@
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
 import createSvgSpritePlugin from 'vite-plugin-svg-sprite';
@@ -31,10 +30,6 @@ export default ({ mode }) => {
 			alias: {
 				'lodash/fp': 'lodash-es',
 				lodash: 'lodash-es',
-				'@aliasedDeps/api-services/axios': resolve(
-					__dirname,
-					'src/app/api/instance',
-				),
 				/* vue-datepicker v4 relies on date-fns v2
        where "/esm" dir still exists. need to update vue-datepicker to v8 at least */
 				'date-fns/esm': 'date-fns',
