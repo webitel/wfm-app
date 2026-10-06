@@ -1,11 +1,8 @@
 {
 	"name": "@webitel/wfm",
-	"version": "0.0.0",
+	"version": "26.8.0",
 	"private": true,
 	"type": "module",
-	"engines": {
-		"node": "^20.19.0 || >=22.12.0"
-	},
 	"scripts": {
 		"check:libs-train": "node scripts/check-webitel-train.mjs",
 		"dev": "vite",
@@ -13,7 +10,7 @@
 		"preview": "vite preview",
 		"test:unit": "vitest",
 		"build-only": "vite build",
-		"type-check": "vue-tsc --build",
+		"typecheck": "vue-tsc --noEmit -p ./tsconfig.json",
 		"lint:fix": "npx biome check --write ./src",
 		"lint:fix-staged": "npx lint-staged",
 		"utils:up-lib": "npm up @webitel/ui-sdk @webitel/ui-datalist && npm ls @webitel/ui-sdk @webitel/ui-datalist",
@@ -24,19 +21,20 @@
 		"typecheck:ci": "true"
 	},
 	"dependencies": {
-		"@vueuse/core": "^13.9.0",
-		"@webitel/api-services": "0.0.73",
-		"@webitel/ui-datalist": "1.0.84",
-		"@webitel/ui-sdk": "25.12.11",
-		"axios": "1.12.2",
+		"@vueuse/core": "^14.x",
+		"@webitel/api-services": "~26.8",
+		"@webitel/ui-datalist": "~26.8",
+		"@webitel/ui-sdk": "~26.8",
+		"axios": "^1.18.1",
+		"clipboard-copy": "^4.0.1",
 		"lodash-es": "^4.17.21",
-		"pinia": "^3.0.3",
-		"vue": "^3.5.22",
-		"vue-i18n": "^11.1.12",
-		"vue-router": "^4.5.1",
+		"pinia": "^3.0.4",
+		"vue": "^3.5.x",
+		"vue-i18n": "^11.x",
+		"vue-router": "^4.x",
 		"vuex": "^4.1.0",
-		"webitel-sdk": "^25.8.7",
-		"zod": "^3.25.76"
+		"webitel-sdk": "^26.4.8",
+		"zod": "^4.x"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.14",
@@ -46,26 +44,26 @@
 		"@vitejs/plugin-vue": "^6.0.1",
 		"@vue/test-utils": "^2.4.6",
 		"@vue/tsconfig": "^0.7.0",
-		"globals": "^16.4.0",
+		"globals": "^17.x",
 		"husky": "^9.1.7",
 		"jiti": "^2.5.1",
 		"jsdom": "^27.0.0",
 		"npm-run-all2": "^8.0.4",
+		"sass": "^1.102.0",
 		"tslib": "^2.7.0",
-		"typescript": "~5.6.3",
-		"vite": "^7.2.1",
-		"vite-plugin-checker": "^0.11.0",
+		"typescript": "^5.9.x",
+		"vite": "npm:rolldown-vite@^7.3.x",
+		"vite-plugin-checker": "^0.12.x",
 		"vite-plugin-svg-sprite": "=0.6.3",
-		"vite-plugin-vue-devtools": "^8.0.0",
-		"vitest": "^3.2.4",
-		"vue-tsc": "^2.1.10"
+		"vite-plugin-vue-devtools": "^8.x",
+		"vitest": "^4.x",
+		"vue-tsc": "^3.x"
 	},
 	"optionalDependencies": {
 		"@esbuild/darwin-arm64": "^0.24.0",
 		"@rollup/rollup-linux-x64-gnu": "4.9.5"
 	},
 	"overrides": {
-		"vue-tsc": "^2.1.10",
-		"vite": "^7.2.1"
+		"vite": "npm:rolldown-vite@^7.3.x"
 	}
 }

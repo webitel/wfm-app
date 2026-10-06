@@ -1,20 +1,15 @@
 <template>
+  <wt-notifications-bar />
   <router-view />
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia';
 import { onMounted, provide } from 'vue';
 import { useI18n } from 'vue-i18n';
-
-import { useAppearanceStore } from './modules/appearance/store/appearanceStore';
+import { useUserinfoStore } from './modules/userinfo/store/userinfoStore';
 
 const { locale, fallbackLocale } = useI18n();
-
-const appearanceStore = useAppearanceStore();
-
-const { darkMode } = storeToRefs(appearanceStore);
-provide('darkMode', darkMode);
+const { showUserNotifications } = useUserinfoStore();
 
 function setLanguage() {
 	const lang = localStorage.getItem('lang');
@@ -25,10 +20,11 @@ function setLanguage() {
 
 onMounted(() => {
 	setLanguage();
+	showUserNotifications();
 });
 </script>
 
-<style lang="scss">
+<style>
 #app {
   min-width: 100%;
   min-height: 100%;
