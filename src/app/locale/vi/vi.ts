@@ -1,10 +1,11 @@
 import { WfmSections } from '@webitel/ui-sdk/enums';
 
 export default {
+	wfm: 'WFM',
 	startPage: {
-		[WfmSections.MySchedules]: {
-			name: 'Lịch trình của tôi',
-			text: 'Bạn có thể xem lịch trình của mình',
+		configuration: {
+			name: 'Cấu hình',
+			text: 'Phần này chứa dữ liệu cấu hình ban đầu của mô-đun',
 		},
 		[WfmSections.Agents]: {
 			name: 'Đại lý',

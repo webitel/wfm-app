@@ -1,10 +1,11 @@
 import { WfmSections } from '@webitel/ui-sdk/enums';
 
 export default {
+	wfm: 'WFM',
 	startPage: {
-		[WfmSections.MySchedules]: {
-			name: 'Мої розклади',
-			text: 'Ви можете переглянути свій розклад',
+		configuration: {
+			name: 'Конфігурації',
+			text: 'Цей розділ містить початкові дані конфігурації модуля',
 		},
 		[WfmSections.Agents]: {
 			name: 'Агенти',

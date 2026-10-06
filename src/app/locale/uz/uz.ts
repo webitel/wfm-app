@@ -1,10 +1,11 @@
 import { WfmSections } from '@webitel/ui-sdk/enums';
 
 export default {
+	wfm: 'WFM',
 	startPage: {
-		[WfmSections.MySchedules]: {
-			name: 'Mening jadvalarim',
-			text: 'Siz jadvalingizni ko‘rishingiz mumkin',
+		configuration: {
+			name: 'Sozlamalar',
+			text: "Ushbu bo'limda modulning boshlang'ich sozlamalari mavjud",
 		},
 		[WfmSections.Agents]: {
 			name: 'Agentlar',

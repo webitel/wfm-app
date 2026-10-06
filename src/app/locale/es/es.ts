@@ -1,10 +1,11 @@
 import { WfmSections } from '@webitel/ui-sdk/enums';
 
 export default {
+	wfm: 'WFM',
 	startPage: {
-		[WfmSections.MySchedules]: {
-			name: 'Mis horarios',
-			text: 'Puedes ver tu horario',
+		configuration: {
+			name: 'Configuraciones',
+			text: 'Esta sección contiene los datos de configuración inicial del módulo',
 		},
 		[WfmSections.Agents]: {
 			name: 'Agentes',
