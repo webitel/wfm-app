@@ -1,10 +1,11 @@
 import { WfmSections } from '@webitel/ui-sdk/enums';
 
 export default {
+	wfm: 'WFM',
 	startPage: {
-		[WfmSections.MySchedules]: {
-			name: 'Менің кестелерім',
-			text: 'Сіз өз кестеңізді көре аласыз',
+		configuration: {
+			name: 'Конфигурациялар',
+			text: 'Бұл бөлімде модульдің бастапқы конфигурация деректері бар',
 		},
 		[WfmSections.Agents]: {
 			name: 'Агенттер',
