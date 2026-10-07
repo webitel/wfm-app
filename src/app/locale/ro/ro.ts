@@ -27,5 +27,17 @@ export default {
 			notSelected: 'Neales',
 			duration: 'Durata (min)',
 		},
+		shiftTemplates: {
+			shiftTemplates: 'Șablon de schimb | Șabloane de schimb',
+		},
+		workingConditions: {
+			workingConditions: 'Condiții de lucru',
+			workdayDuration: 'Durata zilei de lucru (ore)',
+			workdaysPerMonth: 'Zile de lucru pe lună',
+			vacationDaysPerYear: 'Zile de concediu pe an',
+			sickLeavesPerYear: 'Zile de concediu medical pe an',
+			daysOffPerYear: 'Zile libere pe an',
+			pauseDuration: 'Durata pauzei (min)',
+		},
 	},
 };

@@ -27,5 +27,17 @@ export default {
 			notSelected: 'Таңдалмаған',
 			duration: 'Ұзақтығы (мин)',
 		},
+		shiftTemplates: {
+			shiftTemplates: 'Смена шаблоны | Смена шаблондары',
+		},
+		workingConditions: {
+			workingConditions: 'Жұмыс шарттары',
+			workdayDuration: 'Жұмыс күні ұзақтығы (сағ)',
+			workdaysPerMonth: 'Айдағы жұмыс күндері',
+			vacationDaysPerYear: 'Жылына еңбек демалысы күндері',
+			sickLeavesPerYear: 'Жылына ауру күндері',
+			daysOffPerYear: 'Жылына демалыс күндері',
+			pauseDuration: 'Демалыс ұзақтығы (мин)',
+		},
 	},
 };

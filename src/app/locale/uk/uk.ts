@@ -27,5 +27,17 @@ export default {
 			notSelected: 'Не вибрано',
 			duration: 'Тривалість (хв)',
 		},
+		shiftTemplates: {
+			shiftTemplates: 'Шаблон змін | Шаблони змін',
+		},
+		workingConditions: {
+			workingConditions: 'Умови роботи',
+			workdayDuration: 'Тривалість робочого дня (год.)',
+			workdaysPerMonth: 'Кількість робочих днів на місяць',
+			vacationDaysPerYear: 'Кількість днів відпустки на рік',
+			sickLeavesPerYear: 'Кількість днів лікарняного на рік',
+			daysOffPerYear: 'Кількість вихідних днів на рік',
+			pauseDuration: 'Тривалість перерви (хв)',
+		},
 	},
 };

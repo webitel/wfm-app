@@ -27,5 +27,17 @@ export default {
 			notSelected: 'Не выбрано',
 			duration: 'Длительность (мин)',
 		},
+		shiftTemplates: {
+			shiftTemplates: 'Шаблон смен | Шаблоны смен',
+		},
+		workingConditions: {
+			workingConditions: 'Условия работы',
+			workdayDuration: 'Длительность рабочего дня (час.)',
+			workdaysPerMonth: 'Количество рабочих дней в месяц',
+			vacationDaysPerYear: 'Количество дней отпуска в год',
+			sickLeavesPerYear: 'Количество дней больничного в год',
+			daysOffPerYear: 'Количество выходных дней в год',
+			pauseDuration: 'Длительность перерыва (мин)',
+		},
 	},
 };
