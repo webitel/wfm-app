@@ -27,5 +27,17 @@ export default {
 			notSelected: 'No seleccionado',
 			duration: 'Duración (min)',
 		},
+		shiftTemplates: {
+			shiftTemplates: 'Plantilla de turno | Plantillas de turnos',
+		},
+		workingConditions: {
+			workingConditions: 'Condiciones de trabajo',
+			workdayDuration: 'Duración del día laboral (hrs)',
+			workdaysPerMonth: 'Días laborables al mes',
+			vacationDaysPerYear: 'Días de vacaciones al año',
+			sickLeavesPerYear: 'Días de enfermedad al año',
+			daysOffPerYear: 'Días libres al año',
+			pauseDuration: 'Duración de la pausa (min)',
+		},
 	},
 };

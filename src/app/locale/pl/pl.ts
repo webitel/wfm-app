@@ -27,5 +27,17 @@ export default {
 			notSelected: 'Nie wybrano',
 			duration: 'Długość (min)',
 		},
+		shiftTemplates: {
+			shiftTemplates: 'Szablon zmiany | Szablony zmian',
+		},
+		workingConditions: {
+			workingConditions: 'Warunki pracy',
+			workdayDuration: 'Długość dnia pracy (godz)',
+			workdaysPerMonth: 'Dni pracy w miesiącu',
+			vacationDaysPerYear: 'Dni urlopu w roku',
+			sickLeavesPerYear: 'Dni chorobowe w roku',
+			daysOffPerYear: 'Dni wolne w roku',
+			pauseDuration: 'Długość przerwy (min)',
+		},
 	},
 };
