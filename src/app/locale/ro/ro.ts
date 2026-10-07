@@ -1,10 +1,11 @@
 import { WfmSections } from '@webitel/ui-sdk/enums';
 
 export default {
+	wfm: 'WFM',
 	startPage: {
-		[WfmSections.MySchedules]: {
-			name: 'Programele mele',
-			text: 'Poți vedea programul tău',
+		configuration: {
+			name: 'Configurații',
+			text: 'Această secțiune conține datele inițiale de configurare a modulului',
 		},
 		[WfmSections.Agents]: {
 			name: 'Agenți',

@@ -1,7 +1,6 @@
 import vue from '@vitejs/plugin-vue';
 import { defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
-import createSvgSpritePlugin from 'vite-plugin-svg-sprite';
 import vueDevTools from 'vite-plugin-vue-devtools';
 
 // https://vite.dev/config/
@@ -41,9 +40,6 @@ export default ({ mode }) => {
 		},
 		plugins: [
 			vue(),
-			createSvgSpritePlugin({
-				include: '**/sprite/*.svg',
-			}),
 			checker({
 				typescript: false,
 				vueTsc: false,

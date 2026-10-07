@@ -1,4 +1,3 @@
-import './app/assets/icons/sprite';
 import './app/css/main.css';
 
 import { setConfig as setApiServicesConfig } from '@webitel/api-services';
