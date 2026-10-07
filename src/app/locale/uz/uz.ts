@@ -27,5 +27,17 @@ export default {
 			notSelected: 'Tanlanmagan',
 			duration: 'Davomiyligi (daqiqa)',
 		},
+		shiftTemplates: {
+			shiftTemplates: 'Smena shabloni | Smena shablonlari',
+		},
+		workingConditions: {
+			workingConditions: 'Ish shartlari',
+			workdayDuration: 'Ish kuni davomiyligi (soat)',
+			workdaysPerMonth: 'Oyiga ish kunlari',
+			vacationDaysPerYear: "Yiliga ta'til kunlari",
+			sickLeavesPerYear: 'Yiliga kasallik kunlari',
+			daysOffPerYear: 'Yiliga dam olish kunlari',
+			pauseDuration: "To'xtash davomiyligi (daqiqa)",
+		},
 	},
 };

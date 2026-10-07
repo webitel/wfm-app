@@ -27,5 +27,17 @@ export default {
 			notSelected: 'Not selected',
 			duration: 'Duration (min)',
 		},
+		shiftTemplates: {
+			shiftTemplates: 'Shift template | Shift templates',
+		},
+		workingConditions: {
+			workingConditions: 'Working condition | Working conditions',
+			workdayDuration: 'Workday duration (hrs)',
+			workdaysPerMonth: 'Workdays per month',
+			vacationDaysPerYear: 'Vacation days (per year)',
+			sickLeavesPerYear: 'Sick leaves (per year)',
+			daysOffPerYear: 'Days-off (per year)',
+			pauseDuration: 'Pause duration (min)',
+		},
 	},
 };
