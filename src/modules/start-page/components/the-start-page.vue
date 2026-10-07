@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import WtStartPage from '@webitel/ui-sdk/src/components/on-demand/wt-start-page/components/wt-start-page.vue';
+import { WtStartPage } from '@webitel/ui-sdk/components';
 import { storeToRefs } from 'pinia';
 
 import { useAppearanceStore } from '../../appearance/store/appearanceStore';

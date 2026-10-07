@@ -17,6 +17,15 @@ export default defineConfig(async (env: ConfigEnv) => {
 				'e2e/**',
 			],
 			root: fileURLToPath(new URL('./', import.meta.url)),
+			server: {
+				deps: {
+					// [Claude] @webitel packages ship raw .ts source under node_modules;
+					// [Claude] inline them so Vite transforms the types instead of Node's loader
+					inline: [
+						/@webitel\//,
+					],
+				},
+			},
 		},
 	});
 });

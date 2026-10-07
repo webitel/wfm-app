@@ -8,7 +8,6 @@ import {
 } from 'vue-router';
 
 import agentsRoutes from '../../modules/agents/router';
-import mySchedulesRoutes from '../../modules/my-schedules/router';
 import schedulesRoutes from '../../modules/schedules/router';
 import startPageRoutes from '../../modules/start-page/router';
 import TheWfmWorkspace from '../components/the-wfm-workspace.vue';
@@ -17,7 +16,7 @@ import AccessDenied from '../components/utils/access-denied-component.vue';
 const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/',
-		name: 'crm-workspace',
+		name: 'wfm-workspace',
 		redirect: {
 			name: 'the-start-page',
 		},
@@ -27,9 +26,8 @@ const routes: Array<RouteRecordRaw> = [
 		},
 		children: [
 			...startPageRoutes,
-			...mySchedulesRoutes,
-			...schedulesRoutes,
 			...agentsRoutes,
+			...schedulesRoutes,
 		],
 	},
 	{
@@ -56,7 +54,7 @@ export const initRouter = async ({ beforeEach = [] } = {}) => {
 	router.beforeEach(
 		(
 			to: RouteLocationNormalized,
-			from: RouteLocationNormalized,
+			_from: RouteLocationNormalized,
 			next: NavigationGuardNext,
 		) => {
 			if (!localStorage.getItem('access-token') && !to.query.accessToken) {

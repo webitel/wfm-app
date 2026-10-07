@@ -4,10 +4,10 @@
 			<wt-app-header v-if="!shouldHideHeader">
 				<wt-notifications-bar />
 				<wt-navigation-bar
-					:current-app="thisApp"
+					:current-app="currentApp"
 					:nav="accessibleNav"
 					:dark-mode="darkMode"
-					:logo-route="StartPageRoutePaths.TheStartPage"
+					logo-route="/start-page"
 				/>
 				<wt-logo
 					:dark-mode="darkMode"
@@ -16,7 +16,7 @@
 				<wt-dark-mode-switcher @changed-mode="setTheme" />
 				<wt-app-navigator
 					:apps="apps"
-					:current-app="thisApp"
+					:current-app="currentApp"
 					:dark-mode="darkMode"
 				/>
 				<wt-header-actions
@@ -33,20 +33,20 @@
 	</main>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { WtNavigationBar } from '@webitel/ui-sdk/components';
 import { WtApplication } from '@webitel/ui-sdk/enums';
-import WtDarkModeSwitcher from '@webitel/ui-sdk/src/modules/Appearance/components/wt-dark-mode-switcher.vue';
+import { WtDarkModeSwitcher } from '@webitel/ui-sdk/modules/Appearance';
 import { storeToRefs } from 'pinia';
 import { computed, inject } from 'vue';
 import { useRoute } from 'vue-router';
-
+import packageJson from './../../../package.json' with { type: 'json' };
 import { useAppearanceStore } from '../../modules/appearance/store/appearanceStore';
-import StartPageRoutePaths from '../../modules/start-page/router/internals/start-page-route-paths';
 import { useNavStore } from '../../modules/start-page/stores/navStore';
 import { useUserinfoStore } from '../../modules/userinfo/store/userinfoStore';
 
 const route = useRoute();
-const release = import.meta.env.npm_package_version;
+const release = packageJson.version;
 const build = import.meta.env.VITE_BUILD_NUMBER;
 const timestamp = import.meta.env.VITE_BUILD_TIMESTAMP;
 
@@ -59,7 +59,7 @@ const { setTheme } = appearanceStore;
 const { userInfo } = storeToRefs(userInfoStore);
 const { darkMode } = storeToRefs(appearanceStore);
 
-const thisApp = WebitelApplications.WFM;
+const currentApp = WtApplication.Wfm;
 
 const shouldHideHeader = computed(() => !!route.meta.hideHeader);
 
@@ -71,45 +71,55 @@ const accessibleNav = computed(() =>
 	nav.value.filter(({ disabled }) => !disabled),
 );
 
+const config = inject<{
+	ON_SITE?: boolean;
+}>('$config');
+
 const apps = computed(() => {
 	const agent = {
-		name: WebitelApplications.AGENT,
+		name: WtApplication.Agent,
 		href: import.meta.env.VITE_AGENT_URL,
 	};
 	const supervisor = {
-		name: WebitelApplications.SUPERVISOR,
+		name: WtApplication.Supervisor,
 		href: import.meta.env.VITE_SUPERVISOR_URL,
 	};
 	const history = {
-		name: WebitelApplications.HISTORY,
+		name: WtApplication.History,
 		href: import.meta.env.VITE_HISTORY_URL,
 	};
 	const audit = {
-		name: WebitelApplications.AUDIT,
+		name: WtApplication.Audit,
 		href: import.meta.env.VITE_AUDIT_URL,
 	};
 	const admin = {
-		name: WebitelApplications.ADMIN,
+		name: WtApplication.Admin,
 		href: import.meta.env.VITE_ADMIN_URL,
 	};
 	const grafana = {
-		name: WebitelApplications.ANALYTICS,
+		name: WtApplication.Analytics,
 		href: import.meta.env.VITE_GRAFANA_URL,
 	};
 	const crm = {
-		name: WebitelApplications.CRM,
+		name: WtApplication.Crm,
 		href: import.meta.env.VITE_CRM_URL,
 	};
+	const wfm = {
+		name: WtApplication.Wfm,
+		href: import.meta.env.VITE_WFM_URL,
+	};
 
-	const config = inject('$config');
-
-	const allApps = [
+	const allApps: {
+		name: WtApplication;
+		href: string;
+	}[] = [
 		admin,
 		supervisor,
 		agent,
 		history,
 		audit,
 		crm,
+		wfm,
 	];
 	if (config?.ON_SITE) allApps.push(grafana);
 	return allApps.filter(({ name }) => hasApplicationVisibility(name));

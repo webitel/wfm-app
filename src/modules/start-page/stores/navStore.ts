@@ -5,12 +5,12 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useUserinfoStore } from '../../userinfo/store/userinfoStore';
-import WfmAgentsDark from '../assets/wfm-agents-dark.svg';
-import WfmAgentsLight from '../assets/wfm-agents-light.svg';
-import WfmMySchedulesDark from '../assets/wfm-my-schedules-dark.svg';
-import WfmMySchedulesLight from '../assets/wfm-my-schedules-light.svg';
-import WfmSchedulesDark from '../assets/wfm-schedules-dark.svg';
-import WfmSchedulesLight from '../assets/wfm-schedules-light.svg';
+import AgentsSectionDark from '../assets/agents-section-dark.svg';
+import AgentsSectionLight from '../assets/agents-section-light.svg';
+import ConfigurationSectionDark from '../assets/configuration-section-dark.svg';
+import ConfigurationSectionLight from '../assets/configuration-section-light.svg';
+import SchedulesSectionDark from '../assets/schedules-section-dark.svg';
+import SchedulesSectionLight from '../assets/schedules-section-light.svg';
 
 export const useNavStore = defineStore('nav', () => {
 	const { t } = useI18n();
@@ -19,12 +19,6 @@ export const useNavStore = defineStore('nav', () => {
 	const { routeAccessGuard } = useUserinfoStore();
 
 	const nav = computed(() => {
-		const mySchedulesRoutePath = '/my-schedules';
-		const mySchedulesRoute = router.resolve({
-			path: mySchedulesRoutePath,
-		});
-		const hasMySchedulesAccess = routeAccessGuard(mySchedulesRoute) === true;
-
 		const agentsRoutePath = '/agents';
 		const agentsRoute = router.resolve({
 			path: agentsRoutePath,
@@ -39,14 +33,13 @@ export const useNavStore = defineStore('nav', () => {
 
 		const navigation = [
 			{
-				value: WfmSections.MySchedules,
-				route: mySchedulesRoutePath,
-				name: t(`startPage.${WfmSections.MySchedules}.name`),
-				text: t(`startPage.${WfmSections.MySchedules}.text`),
-				disabled: !hasMySchedulesAccess,
+				value: 'configuration',
+				route: '/configuration',
+				name: t(`startPage.configuration.name`),
+				text: t(`startPage.configuration.text`),
 				images: {
-					light: WfmMySchedulesLight,
-					dark: WfmMySchedulesDark,
+					light: ConfigurationSectionLight,
+					dark: ConfigurationSectionDark,
 				},
 			},
 			{
@@ -56,8 +49,8 @@ export const useNavStore = defineStore('nav', () => {
 				text: t(`startPage.${WfmSections.Agents}.text`),
 				disabled: !hasAgentsAccess,
 				images: {
-					light: WfmSchedulesLight,
-					dark: WfmSchedulesDark,
+					light: AgentsSectionLight,
+					dark: AgentsSectionDark,
 				},
 			},
 			{
@@ -67,8 +60,8 @@ export const useNavStore = defineStore('nav', () => {
 				text: t(`startPage.${WfmSections.Schedules}.text`),
 				disabled: !hasSchedulesAccess,
 				images: {
-					light: WfmAgentsLight,
-					dark: WfmAgentsDark,
+					light: SchedulesSectionLight,
+					dark: SchedulesSectionDark,
 				},
 			},
 		];

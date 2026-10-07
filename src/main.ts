@@ -1,8 +1,6 @@
-import './app/assets/icons/sprite';
 import './app/css/main.css';
 
 import { setConfig as setApiServicesConfig } from '@webitel/api-services';
-import { WtApplication } from '@webitel/ui-sdk/enums';
 import { eventBus } from '@webitel/ui-sdk/scripts';
 import { configureZod } from '@webitel/ui-sdk/validations';
 import { createPinia } from 'pinia';
@@ -56,7 +54,8 @@ setApiServicesConfig({
 const initApp = async () => {
 	const app = createApp(App).use(i18n).use(pinia);
 
-	const { initialize, routeAccessGuard } = useUserinfoStore();
+	const { initialize, routeAccessGuard, clearStorageNotifications } =
+		useUserinfoStore();
 	try {
 		await initialize();
 		createUserAccessControl(useUserinfoStore);
@@ -64,6 +63,7 @@ const initApp = async () => {
 			beforeEach: [
 				routeAccessGuard,
 			],
+			onUnauthorized: clearStorageNotifications,
 		});
 	} catch (err) {
 		console.error('Error initializing app', err);
@@ -79,7 +79,7 @@ const initApp = async () => {
 };
 
 (async () => {
-	let config;
+	let config: Record<string, unknown> | undefined;
 	try {
 		setTokenFromUrl();
 		config = await fetchConfig();
