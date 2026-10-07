@@ -37,6 +37,9 @@ vi.mock('../../../modules/agents/router', () => ({
 vi.mock('../../../modules/schedules/router', () => ({
 	default: [],
 }));
+vi.mock('../../../modules/configuration/router', () => ({
+	default: [],
+}));
 
 describe('router', () => {
 	beforeEach(() => {

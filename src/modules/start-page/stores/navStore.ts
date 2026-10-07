@@ -4,6 +4,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
+import { useConfigurationStore } from '../../configuration/stores/configurationStore';
 import { useUserinfoStore } from '../../userinfo/store/userinfoStore';
 import AgentsSectionDark from '../assets/agents-section-dark.svg';
 import AgentsSectionLight from '../assets/agents-section-light.svg';
@@ -17,6 +18,7 @@ export const useNavStore = defineStore('nav', () => {
 	const router = useRouter();
 
 	const { routeAccessGuard } = useUserinfoStore();
+	const configurationStore = useConfigurationStore();
 
 	const nav = computed(() => {
 		const agentsRoutePath = '/agents';
@@ -37,6 +39,7 @@ export const useNavStore = defineStore('nav', () => {
 				route: '/configuration',
 				name: t(`startPage.configuration.name`),
 				text: t(`startPage.configuration.text`),
+				disabled: !configurationStore.hasAnyConfigurationAccess,
 				images: {
 					light: ConfigurationSectionLight,
 					dark: ConfigurationSectionDark,
