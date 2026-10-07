@@ -16,4 +16,16 @@ export default {
 			text: 'Puedes crear y gestionar horarios',
 		},
 	},
+	configuration: {
+		lookups: 'Búsquedas',
+	},
+	lookups: {
+		pauseTemplates: {
+			pauseTemplates: 'Plantilla de pausa | Plantillas de pausa',
+			template: 'Plantilla',
+			pauseReason: 'Motivo de pausa',
+			notSelected: 'No seleccionado',
+			duration: 'Duración (min)',
+		},
+	},
 };

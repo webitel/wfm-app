@@ -16,4 +16,16 @@ export default {
 			text: 'Siz jadval yaratishingiz va boshqarishingiz mumkin',
 		},
 	},
+	configuration: {
+		lookups: 'Kutubxonalar',
+	},
+	lookups: {
+		pauseTemplates: {
+			pauseTemplates: "To'xtash shablonlari | To'xtash shablonlari",
+			template: 'Shablon',
+			pauseReason: "To'xtash sababi",
+			notSelected: 'Tanlanmagan',
+			duration: 'Davomiyligi (daqiqa)',
+		},
+	},
 };

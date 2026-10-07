@@ -16,4 +16,16 @@ export default {
 			text: 'Poți crea și gestiona programe',
 		},
 	},
+	configuration: {
+		lookups: 'Căutări',
+	},
+	lookups: {
+		pauseTemplates: {
+			pauseTemplates: 'Șablon de pauză | Șabloane de pauză',
+			template: 'Șablon',
+			pauseReason: 'Motiv de pauză',
+			notSelected: 'Neales',
+			duration: 'Durata (min)',
+		},
+	},
 };

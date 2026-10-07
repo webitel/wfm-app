@@ -16,4 +16,16 @@ export default {
 			text: 'Możesz tworzyć i zarządzać harmonogramami',
 		},
 	},
+	configuration: {
+		lookups: 'Wyszukiwanie',
+	},
+	lookups: {
+		pauseTemplates: {
+			pauseTemplates: 'Szablon zawieszenia | Szablony zawieszenia',
+			template: 'Szablon',
+			pauseReason: 'Przyczyna zawieszenia',
+			notSelected: 'Nie wybrano',
+			duration: 'Długość (min)',
+		},
+	},
 };

@@ -16,4 +16,16 @@ export default {
 			text: 'Ви можете створювати та керувати розкладами',
 		},
 	},
+	configuration: {
+		lookups: 'Довідники',
+	},
+	lookups: {
+		pauseTemplates: {
+			pauseTemplates: 'Шаблон пауз | Шаблони пауз',
+			template: 'Шаблон',
+			pauseReason: 'Причина паузи',
+			notSelected: 'Не вибрано',
+			duration: 'Тривалість (хв)',
+		},
+	},
 };

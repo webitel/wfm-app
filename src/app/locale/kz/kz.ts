@@ -16,4 +16,16 @@ export default {
 			text: 'Сіз кестелерді жасай және басқара аласыз',
 		},
 	},
+	configuration: {
+		lookups: 'Құжаттар',
+	},
+	lookups: {
+		pauseTemplates: {
+			pauseTemplates: 'Демалыс шаблоны | Демалыс шаблондары',
+			template: 'Шаблон',
+			pauseReason: 'Демалыс себебі',
+			notSelected: 'Таңдалмаған',
+			duration: 'Ұзақтығы (мин)',
+		},
+	},
 };
