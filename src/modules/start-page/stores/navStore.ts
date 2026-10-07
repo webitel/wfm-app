@@ -2,7 +2,7 @@ import { WfmSections } from '@webitel/ui-sdk/enums';
 import { defineStore } from 'pinia';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { type RouteLocationResolved, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 import { useUserinfoStore } from '../../userinfo/store/userinfoStore';
 import AgentsSectionDark from '../assets/agents-section-dark.svg';
@@ -17,23 +17,19 @@ export const useNavStore = defineStore('nav', () => {
 	const router = useRouter();
 
 	const { routeAccessGuard } = useUserinfoStore();
-	const canAccessRoute = routeAccessGuard as unknown as (
-		to: RouteLocationResolved,
-	) => boolean;
-
 
 	const nav = computed(() => {
 		const agentsRoutePath = '/agents';
 		const agentsRoute = router.resolve({
 			path: agentsRoutePath,
 		});
-		const hasAgentsAccess = canAccessRoute(agentsRoute) === true;
+		const hasAgentsAccess = routeAccessGuard(agentsRoute) === true;
 
 		const schedulesRoutePath = '/schedules';
 		const schedulesRoute = router.resolve({
 			path: schedulesRoutePath,
 		});
-		const hasSchedulesAccess = canAccessRoute(schedulesRoute) === true;
+		const hasSchedulesAccess = routeAccessGuard(schedulesRoute) === true;
 
 		const navigation = [
 			{

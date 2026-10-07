@@ -54,7 +54,7 @@ export const initRouter = async ({ beforeEach = [] } = {}) => {
 	router.beforeEach(
 		(
 			to: RouteLocationNormalized,
-			from: RouteLocationNormalized,
+			_from: RouteLocationNormalized,
 			next: NavigationGuardNext,
 		) => {
 			if (!localStorage.getItem('access-token') && !to.query.accessToken) {
