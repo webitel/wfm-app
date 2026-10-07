@@ -16,4 +16,16 @@ export default {
 			text: 'Вы можете создавать и управлять расписаниями',
 		},
 	},
+	configuration: {
+		lookups: 'Справочники',
+	},
+	lookups: {
+		pauseTemplates: {
+			pauseTemplates: 'Шаблон пауз | Шаблоны пауз',
+			template: 'Шаблон',
+			pauseReason: 'Причина паузы',
+			notSelected: 'Не выбрано',
+			duration: 'Длительность (мин)',
+		},
+	},
 };

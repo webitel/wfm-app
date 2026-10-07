@@ -16,4 +16,16 @@ export default {
 			text: 'You can create and manage schedules',
 		},
 	},
+	configuration: {
+		lookups: 'Lookups',
+	},
+	lookups: {
+		pauseTemplates: {
+			pauseTemplates: 'Pause template | Pause templates',
+			template: 'Template',
+			pauseReason: 'Pause reason',
+			notSelected: 'Not selected',
+			duration: 'Duration (min)',
+		},
+	},
 };
