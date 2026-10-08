@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
@@ -27,6 +28,7 @@ export default ({ mode }) => {
 		},
 		resolve: {
 			alias: {
+				'@': resolve(__dirname, 'src'),
 				'lodash/fp': 'lodash-es',
 				lodash: 'lodash-es',
 				/* vue-datepicker v4 relies on date-fns v2

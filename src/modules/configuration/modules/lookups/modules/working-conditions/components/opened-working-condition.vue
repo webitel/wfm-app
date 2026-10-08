@@ -48,7 +48,7 @@ import { WfmSections } from '@webitel/ui-sdk/enums';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { useUserAccessControl } from '../../../../../../../app/composables/useUserAccessControl';
+import { useUserAccessControl } from '@/app/composables/useUserAccessControl';
 import { useWorkingConditionsCardStore } from '../stores/card/workingConditionsCardStore';
 
 const { t } = useI18n();

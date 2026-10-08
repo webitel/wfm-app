@@ -131,7 +131,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
-import { useUserAccessControl } from '../../../../../../../app/composables/useUserAccessControl';
+import { useUserAccessControl } from '@/app/composables/useUserAccessControl';
 import { ConfigurationNamespace } from '../../../../../namespace';
 import { useWorkingConditionsDatalistStore } from '../stores/datalist/workingConditionsDatalistStore';
 
