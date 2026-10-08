@@ -29,6 +29,10 @@ export default {
 		},
 		shiftTemplates: {
 			shiftTemplates: 'Шаблон змін | Шаблони змін',
+			template: 'Шаблон',
+			start: 'Початок',
+			end: 'Кінець',
+			duration: 'Тривалість (гг:хх)',
 		},
 		workingConditions: {
 			workingConditions: 'Умови роботи',

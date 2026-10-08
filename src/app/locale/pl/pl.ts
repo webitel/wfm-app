@@ -29,6 +29,10 @@ export default {
 		},
 		shiftTemplates: {
 			shiftTemplates: 'Szablon zmiany | Szablony zmian',
+			template: 'Szablon',
+			start: 'Początek',
+			end: 'Koniec',
+			duration: 'Długość (hh:mm)',
 		},
 		workingConditions: {
 			workingConditions: 'Warunki pracy',
