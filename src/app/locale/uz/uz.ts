@@ -29,6 +29,10 @@ export default {
 		},
 		shiftTemplates: {
 			shiftTemplates: 'Smena shabloni | Smena shablonlari',
+			template: 'Shablon',
+			start: 'Boshlanish',
+			end: 'Tugash',
+			duration: 'Davomiyligi (soat:daqiqa)',
 		},
 		workingConditions: {
 			workingConditions: 'Ish shartlari',
