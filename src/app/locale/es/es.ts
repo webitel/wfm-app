@@ -29,6 +29,10 @@ export default {
 		},
 		shiftTemplates: {
 			shiftTemplates: 'Plantilla de turno | Plantillas de turnos',
+			template: 'Plantilla',
+			start: 'Inicio',
+			end: 'Fin',
+			duration: 'Duración (hh:mm)',
 		},
 		workingConditions: {
 			workingConditions: 'Condiciones de trabajo',

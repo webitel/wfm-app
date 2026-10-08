@@ -29,6 +29,10 @@ export default {
 		},
 		shiftTemplates: {
 			shiftTemplates: 'Mẫu ca làm việc',
+			template: 'Mẫu',
+			start: 'Bắt đầu',
+			end: 'Kết thúc',
+			duration: 'Thời gian (giờ:phút)',
 		},
 		workingConditions: {
 			workingConditions: 'Điều kiện làm việc',

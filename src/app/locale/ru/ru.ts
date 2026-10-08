@@ -29,6 +29,10 @@ export default {
 		},
 		shiftTemplates: {
 			shiftTemplates: 'Шаблон смен | Шаблоны смен',
+			template: 'Шаблон',
+			start: 'Начало',
+			end: 'Конец',
+			duration: 'Длительность (чч:мм)',
 		},
 		workingConditions: {
 			workingConditions: 'Условия работы',

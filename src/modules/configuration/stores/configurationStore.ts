@@ -29,6 +29,11 @@ export const useConfigurationStore = defineStore('configuration', () => {
 					name: t('lookups.pauseTemplates.pauseTemplates', 2),
 					route: 'configuration/lookups/pause-templates',
 				},
+				{
+					value: WfmSections.ShiftTemplates,
+					name: t('lookups.shiftTemplates.shiftTemplates', 2),
+					route: 'configuration/lookups/shift-templates',
+				},
 			],
 		},
 	]);

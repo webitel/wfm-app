@@ -29,6 +29,10 @@ export default {
 		},
 		shiftTemplates: {
 			shiftTemplates: 'Shift template | Shift templates',
+			template: 'Template',
+			start: 'Start',
+			end: 'End',
+			duration: 'Duration (hh:mm)',
 		},
 		workingConditions: {
 			workingConditions: 'Working condition | Working conditions',

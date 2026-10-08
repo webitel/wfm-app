@@ -29,6 +29,10 @@ export default {
 		},
 		shiftTemplates: {
 			shiftTemplates: 'Șablon de schimb | Șabloane de schimb',
+			template: 'Șablon',
+			start: 'Început',
+			end: 'Sfârșit',
+			duration: 'Durata (hh:mm)',
 		},
 		workingConditions: {
 			workingConditions: 'Condiții de lucru',
