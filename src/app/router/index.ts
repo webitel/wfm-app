@@ -8,6 +8,7 @@ import {
 } from 'vue-router';
 
 import agentsRoutes from '../../modules/agents/router';
+import configurationRoutes from '../../modules/configuration/router';
 import schedulesRoutes from '../../modules/schedules/router';
 import startPageRoutes from '../../modules/start-page/router';
 import TheWfmWorkspace from '../components/the-wfm-workspace.vue';
@@ -28,6 +29,7 @@ const routes: Array<RouteRecordRaw> = [
 			...startPageRoutes,
 			...agentsRoutes,
 			...schedulesRoutes,
+			...configurationRoutes,
 		],
 	},
 	{

@@ -1,6 +1,6 @@
 <template>
-	<main>
-		<section>
+	<main class="object-wrap">
+		<section class="object">
 			<wt-app-header v-if="!shouldHideHeader">
 				<wt-notifications-bar />
 				<wt-navigation-bar
@@ -132,6 +132,25 @@ function settings() {
 </script>
 
 <style scoped>
+.object-wrap {
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+.object {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+.object-content-wrap {
+	flex: 1;
+	min-height: 0;
+}
+
 .wt-dark-mode-switcher {
 	margin-right: auto;
 }
