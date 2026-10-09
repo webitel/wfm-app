@@ -29,6 +29,10 @@ export default {
 		},
 		shiftTemplates: {
 			shiftTemplates: 'Смена шаблоны | Смена шаблондары',
+			template: 'Шаблон',
+			start: 'Бастау',
+			end: 'Аяқтау',
+			duration: 'Ұзақтығы (сағ:мин)',
 		},
 		workingConditions: {
 			workingConditions: 'Жұмыс шарттары',

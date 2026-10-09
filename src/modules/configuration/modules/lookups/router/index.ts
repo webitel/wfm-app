@@ -15,6 +15,20 @@ const OpenedPauseTemplateTemplate = () =>
 	import(
 		'../modules/pause-templates/components/opened-pause-template-template.vue'
 	);
+
+const TheShiftTemplates = () =>
+	import('../modules/shift-templates/components/the-shift-templates.vue');
+const OpenedShiftTemplate = () =>
+	import('../modules/shift-templates/components/opened-shift-template.vue');
+const OpenedShiftTemplateGeneral = () =>
+	import(
+		'../modules/shift-templates/components/opened-shift-template-general.vue'
+	);
+const OpenedShiftTemplateTemplate = () =>
+	import(
+		'../modules/shift-templates/components/opened-shift-template-template.vue'
+	);
+
 const TheWorkingConditions = () =>
 	import('../modules/working-conditions/components/the-working-conditions.vue');
 const OpenedWorkingCondition = () =>
@@ -64,6 +78,39 @@ const lookupsRoutes: RouteRecordRaw[] = [
 						path: 'template',
 						name: `${WfmSections.PauseTemplates}-template`,
 						component: OpenedPauseTemplateTemplate,
+					},
+				],
+			},
+			{
+				path: 'shift-templates',
+				name: WfmSections.ShiftTemplates,
+				component: TheShiftTemplates,
+				meta: {
+					WtObject: WtObject.ShiftTemplate,
+					UiSection: WfmSections.ShiftTemplates,
+				},
+			},
+			{
+				path: 'shift-templates/:id',
+				name: `${WfmSections.ShiftTemplates}-card`,
+				component: OpenedShiftTemplate,
+				redirect: {
+					name: `${WfmSections.ShiftTemplates}-general`,
+				},
+				meta: {
+					WtObject: WtObject.ShiftTemplate,
+					UiSection: WfmSections.ShiftTemplates,
+				},
+				children: [
+					{
+						path: 'general',
+						name: `${WfmSections.ShiftTemplates}-general`,
+						component: OpenedShiftTemplateGeneral,
+					},
+					{
+						path: 'template',
+						name: `${WfmSections.ShiftTemplates}-template`,
+						component: OpenedShiftTemplateTemplate,
 					},
 				],
 			},

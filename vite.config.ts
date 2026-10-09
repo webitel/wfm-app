@@ -38,6 +38,7 @@ export default ({ mode }) => {
 			dedupe: [
 				'vue',
 				'zod',
+				'pinia',
 			],
 		},
 		plugins: [
