@@ -29,6 +29,17 @@ const OpenedShiftTemplateTemplate = () =>
 		'../modules/shift-templates/components/opened-shift-template-template.vue'
 	);
 
+const TheWorkingConditions = () =>
+	import('../modules/working-conditions/components/the-working-conditions.vue');
+const OpenedWorkingCondition = () =>
+	import(
+		'../modules/working-conditions/components/opened-working-condition.vue'
+	);
+const OpenedWorkingConditionGeneral = () =>
+	import(
+		'../modules/working-conditions/components/opened-working-condition-general.vue'
+	);
+
 const lookupsRoutes: RouteRecordRaw[] = [
 	{
 		path: 'configuration/lookups',
@@ -100,6 +111,34 @@ const lookupsRoutes: RouteRecordRaw[] = [
 						path: 'template',
 						name: `${WfmSections.ShiftTemplates}-template`,
 						component: OpenedShiftTemplateTemplate,
+					},
+				],
+			},
+			{
+				path: 'working-conditions',
+				name: WfmSections.WorkingConditions,
+				component: TheWorkingConditions,
+				meta: {
+					WtObject: WtObject.WorkingCondition,
+					UiSection: WfmSections.WorkingConditions,
+				},
+			},
+			{
+				path: 'working-conditions/:id',
+				name: `${WfmSections.WorkingConditions}-card`,
+				component: OpenedWorkingCondition,
+				redirect: {
+					name: `${WfmSections.WorkingConditions}-general`,
+				},
+				meta: {
+					WtObject: WtObject.WorkingCondition,
+					UiSection: WfmSections.WorkingConditions,
+				},
+				children: [
+					{
+						path: 'general',
+						name: `${WfmSections.WorkingConditions}-general`,
+						component: OpenedWorkingConditionGeneral,
 					},
 				],
 			},
