@@ -43,5 +43,18 @@ export default {
 			daysOffPerYear: 'Жылына демалыс күндері',
 			pauseDuration: 'Демалыс ұзақтығы (мин)',
 		},
+		forecastCalculation: {
+			forecastCalculation: 'Болжам есебі | Болжам есептері',
+			procedure: 'SQL процедурасы',
+			arguments: 'Аргументтер',
+			executeDescription: 'Болжам есебін тексеру үшін процедураны орындаңыз',
+			execute: 'Орындау',
+			executeTestProcedure: 'Тест процедурасын орындау',
+			periodFrom: 'Есептеу кезеңі: Бастап',
+			testResult: 'Болжам есебін тексеру',
+			timestamp: 'Уақыт',
+			agents: 'Операторлар',
+			executeError: 'Процедураны орындау кезінде қате пайда болды',
+		},
 	},
 };
