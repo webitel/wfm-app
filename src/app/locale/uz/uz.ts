@@ -43,5 +43,19 @@ export default {
 			daysOffPerYear: 'Yiliga dam olish kunlari',
 			pauseDuration: "To'xtash davomiyligi (daqiqa)",
 		},
+		forecastCalculation: {
+			forecastCalculation: 'Prognoz hisobi | Prognoz hisoblari',
+			procedure: 'SQL protsedurasi',
+			arguments: 'Argumentlar',
+			executeDescription:
+				'Prognoz hisobini tekshirish uchun protsedurani bajaring',
+			execute: 'Bajarish',
+			executeTestProcedure: 'Test protsedurasini bajarish',
+			periodFrom: 'Hisoblash davri: Dan',
+			testResult: 'Prognoz hisobini tekshirish',
+			timestamp: 'Vaqt',
+			agents: 'Operatorlar',
+			executeError: 'Protsedurani bajarishda xatolik yuz berdi',
+		},
 	},
 };
