@@ -69,6 +69,37 @@ describe('router', () => {
 		});
 	});
 
+	it('redirects to auth instead of trusting a token from the url', async () => {
+		localStorage.clear();
+		// router history reads the real location, so create it before stubbing
+		const router = await initRouter();
+		const originalLocation = window.location;
+		Object.defineProperty(window, 'location', {
+			value: {
+				href: 'https://webitel.test/wfm/',
+			},
+			writable: true,
+		});
+
+		try {
+			// the guard leaves the page instead of resolving the navigation
+			router.push('/agents?accessToken=foreign-token');
+
+			await vi.waitFor(() =>
+				expect(window.location.href).toBe(
+					`${import.meta.env.VITE_AUTH_URL}?redirectTo=${encodeURIComponent('https://webitel.test/wfm/')}`,
+				),
+			);
+			expect(localStorage.getItem('access-token')).toBeNull();
+			expect(router.currentRoute.value.name).not.toBe('agents');
+		} finally {
+			Object.defineProperty(window, 'location', {
+				value: originalLocation,
+				writable: true,
+			});
+		}
+	});
+
 	it('applies guards passed via beforeEach option', async () => {
 		const router = await initRouter({
 			beforeEach: [
