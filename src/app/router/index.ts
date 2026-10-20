@@ -59,12 +59,14 @@ export const initRouter = async ({ beforeEach = [] } = {}) => {
 			_from: RouteLocationNormalized,
 			next: NavigationGuardNext,
 		) => {
-			if (!localStorage.getItem('access-token') && !to.query.accessToken) {
+			// [https://webitel.atlassian.net/browse/WTEL-10705]
+			// only the stored token counts: `?accessToken=` is never trusted
+			if (!localStorage.getItem('access-token')) {
 				const desiredUrl = encodeURIComponent(window.location.href);
 				const authUrl = import.meta.env.VITE_AUTH_URL;
 				window.location.href = `${authUrl}?redirectTo=${desiredUrl}`;
 			} else if (to.query.accessToken) {
-				// assume that access token was set from query before app initialization in main.js
+				// old links may still carry the token: drop it from the url
 				const newQuery = {
 					...to.query,
 				};
