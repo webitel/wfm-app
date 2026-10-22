@@ -39,6 +39,11 @@ export const useConfigurationStore = defineStore('configuration', () => {
 					name: t('lookups.workingConditions.workingConditions', 2),
 					route: 'configuration/lookups/working-conditions',
 				},
+				{
+					value: WfmSections.ForecastCalculation,
+					name: t('lookups.forecastCalculation.forecastCalculation', 2),
+					route: 'configuration/lookups/forecast-calculation',
+				},
 			],
 		},
 	]);
