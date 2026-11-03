@@ -2,7 +2,7 @@ import './app/css/main.css';
 import './app/assets/icons/sprite';
 
 import { setConfig as setApiServicesConfig } from '@webitel/api-services';
-import { eventBus } from '@webitel/ui-sdk/scripts';
+import { eventBus, reloadOnStaleChunk } from '@webitel/ui-sdk/scripts';
 import { configureZod } from '@webitel/ui-sdk/validations';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
@@ -21,6 +21,9 @@ const fetchConfig = async () => {
 	const response = await fetch(`${import.meta.env.BASE_URL}/config.json`);
 	return response.json();
 };
+
+// [Claude] after a release an open tab can request an old lazy chunk that is gone - reload instead of a white page
+reloadOnStaleChunk();
 
 const pinia = createPinia();
 
