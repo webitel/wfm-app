@@ -43,5 +43,19 @@ export default {
 			daysOffPerYear: 'Días libres al año',
 			pauseDuration: 'Duración de la pausa (min)',
 		},
+		forecastCalculation: {
+			forecastCalculation: 'Cálculo de pronóstico | Cálculos de pronóstico',
+			procedure: 'Procedimiento SQL',
+			arguments: 'Argumentos',
+			executeDescription:
+				'Ejecute el procedimiento para probar el cálculo de pronóstico',
+			execute: 'Ejecutar',
+			executeTestProcedure: 'Ejecutar procedimiento de prueba',
+			periodFrom: 'Período de cálculo: Desde',
+			testResult: 'Prueba de cálculo de pronóstico',
+			timestamp: 'Marca de tiempo',
+			agents: 'Agentes',
+			executeError: 'Se produjo un error al ejecutar el procedimiento',
+		},
 	},
 };

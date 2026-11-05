@@ -43,5 +43,19 @@ export default {
 			daysOffPerYear: 'Zile libere pe an',
 			pauseDuration: 'Durata pauzei (min)',
 		},
+		forecastCalculation: {
+			forecastCalculation: 'Calcul prognoză | Calcule prognoză',
+			procedure: 'Procedură SQL',
+			arguments: 'Argumente',
+			executeDescription:
+				'Executați procedura pentru a testa calculul prognozei',
+			execute: 'Executare',
+			executeTestProcedure: 'Executare procedură de test',
+			periodFrom: 'Perioada de calcul: De la',
+			testResult: 'Test calcul prognoză',
+			timestamp: 'Marcaj temporal',
+			agents: 'Agenți',
+			executeError: 'A apărut o eroare la executarea procedurii',
+		},
 	},
 };

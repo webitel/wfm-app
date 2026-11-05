@@ -43,5 +43,18 @@ export default {
 			daysOffPerYear: 'Количество выходных дней в год',
 			pauseDuration: 'Длительность перерыва (мин)',
 		},
+		forecastCalculation: {
+			forecastCalculation: 'Расчет прогноза | Расчеты прогноза',
+			procedure: 'SQL-процедура',
+			arguments: 'Аргументы',
+			executeDescription: 'Выполните процедуру, чтоб проверить расчет прогноза',
+			execute: 'Выполнить',
+			executeTestProcedure: 'Выполнить тестовую процедуру',
+			periodFrom: 'Период для расчета: С',
+			testResult: 'Проверка расчета прогноза',
+			timestamp: 'Время',
+			agents: 'Операторы',
+			executeError: 'При выполнении процедуры произошла ошибка',
+		},
 	},
 };

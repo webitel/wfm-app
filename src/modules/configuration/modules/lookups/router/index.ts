@@ -40,6 +40,19 @@ const OpenedWorkingConditionGeneral = () =>
 		'../modules/working-conditions/components/opened-working-condition-general.vue'
 	);
 
+const TheForecastCalculation = () =>
+	import(
+		'../modules/forecast-calculation/components/the-forecast-calculation.vue'
+	);
+const OpenedForecastCalculation = () =>
+	import(
+		'../modules/forecast-calculation/components/opened-forecast-calculation.vue'
+	);
+const OpenedForecastCalculationGeneral = () =>
+	import(
+		'../modules/forecast-calculation/components/opened-forecast-calculation-general.vue'
+	);
+
 const lookupsRoutes: RouteRecordRaw[] = [
 	{
 		path: 'configuration/lookups',
@@ -139,6 +152,34 @@ const lookupsRoutes: RouteRecordRaw[] = [
 						path: 'general',
 						name: `${WfmSections.WorkingConditions}-general`,
 						component: OpenedWorkingConditionGeneral,
+					},
+				],
+			},
+			{
+				path: 'forecast-calculation',
+				name: WfmSections.ForecastCalculation,
+				component: TheForecastCalculation,
+				meta: {
+					WtObject: WtObject.ForecastCalculation,
+					UiSection: WfmSections.ForecastCalculation,
+				},
+			},
+			{
+				path: 'forecast-calculation/:id',
+				name: `${WfmSections.ForecastCalculation}-card`,
+				component: OpenedForecastCalculation,
+				redirect: {
+					name: `${WfmSections.ForecastCalculation}-general`,
+				},
+				meta: {
+					WtObject: WtObject.ForecastCalculation,
+					UiSection: WfmSections.ForecastCalculation,
+				},
+				children: [
+					{
+						path: 'general',
+						name: `${WfmSections.ForecastCalculation}-general`,
+						component: OpenedForecastCalculationGeneral,
 					},
 				],
 			},

@@ -43,5 +43,18 @@ export default {
 			daysOffPerYear: 'Days-off (per year)',
 			pauseDuration: 'Pause duration (min)',
 		},
+		forecastCalculation: {
+			forecastCalculation: 'Forecast calculation | Forecast calculations',
+			procedure: 'SQL procedure',
+			arguments: 'Arguments',
+			executeDescription: 'Execute procedure to test forecast calculation',
+			execute: 'Execute',
+			executeTestProcedure: 'Execute test procedure',
+			periodFrom: 'Period for calculation: From',
+			testResult: 'Forecast calculation test',
+			timestamp: 'Timestamp',
+			agents: 'Agents',
+			executeError: 'An error occurred while executing the procedure',
+		},
 	},
 };

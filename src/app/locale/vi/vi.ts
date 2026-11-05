@@ -43,5 +43,18 @@ export default {
 			daysOffPerYear: 'Số ngày nghỉ trong năm',
 			pauseDuration: 'Thời gian tạm dừng (phút)',
 		},
+		forecastCalculation: {
+			forecastCalculation: 'Tính toán dự báo | Tính toán dự báo',
+			procedure: 'Thủ tục SQL',
+			arguments: 'Đối số',
+			executeDescription: 'Thực thi thủ tục để kiểm tra tính toán dự báo',
+			execute: 'Thực thi',
+			executeTestProcedure: 'Thực thi thủ tục kiểm tra',
+			periodFrom: 'Khoảng thời gian tính toán: Từ',
+			testResult: 'Kiểm tra tính toán dự báo',
+			timestamp: 'Dấu thời gian',
+			agents: 'Nhân viên',
+			executeError: 'Đã xảy ra lỗi khi thực thi thủ tục',
+		},
 	},
 };
