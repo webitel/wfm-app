@@ -22,8 +22,13 @@ export default ({ mode }) => {
 			// exclude: ['@webitel/ui-sdk'],
 			include: [
 				'clipboard-copy',
+				// [Claude] webitel-sdk depends on CJS-only `ee-ts`; without prebundling it,
+				// [Claude] vite serves both raw and the browser fails on the named import
+				'webitel-sdk',
 				'deep-equal',
 				'deepmerge',
+				// [Claude] CJS-only, default-imported by ui-datalist filters and ui-sdk table column select.
+				'deep-copy',
 			],
 		},
 		resolve: {
