@@ -34,18 +34,21 @@
     <!-- [Claude] Left column of a row: the Forecast toggle or the agent card. -->
     <template #resource-label="{ scope }">
       <schedule-table-resource-label
+        v-if="!scope.resource.isSpacer"
+        :data-row-id="scope.resource.row?.agent.id"
         v-model:is-collapsed="isForecastCollapsed"
         :is-schedule-row="isScheduleRow"
-        :is-selected="selected.includes(scope.resource.id)"
+        :is-selected="!!scope.resource.row && selected.includes(scope.resource.row.agent.id)"
         :readonly="readonly"
         :resource="scope.resource as ScheduleTableResource"
         @delete-agent="emit('delete-agent', $event)"
-        @update:is-selected="emit('select', scope.resource.id, $event)"
+        @update:is-selected="emit('select', scope.resource.row.agent.id, $event)"
       />
     </template>
 
     <template #resource-intervals="{ scope }">
-      <template v-if="scope.resource.isForecast">
+      <template v-if="scope.resource.isSpacer" />
+      <template v-else-if="scope.resource.isForecast">
         <schedule-table-forecast-hours
           v-if="!isForecastCollapsed"
           :cell-width="HOUR_WIDTH"

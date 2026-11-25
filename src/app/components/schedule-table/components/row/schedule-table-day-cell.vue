@@ -2,35 +2,55 @@
   <!-- [Claude] One day of one agent in Week / Month (Figma "PrimeVue Schedules Powered"): the
        background tells the day type, chips list the pauses of its shifts or the absence. -->
   <button
-    :class="`schedule-table-day-cell--${type}`"
+    :class="[
+      `schedule-table-day-cell--${type}`,
+      { 'schedule-table-day-cell--split': splitAt !== undefined },
+    ]"
     :disabled="isDisabled"
     :title="shiftsTitle"
     class="schedule-table-day-cell"
     type="button"
     @click="emit('open', $event)"
   >
-    <schedule-table-chip
+    <!-- [Claude] Chips are plain spans with the chip classes (schedule-table.css), not a
+         component each: a Month has thousands of them. -->
+    <span
       v-if="cell?.absence"
-      :color="ABSENCE_CHIP_COLORS[cell.absence] || ScheduleChipColor.Red"
-      :title="t(`scheduleTable.absence.${ABSENCE_KEYS[cell.absence]}`)"
-      class="schedule-table-day-cell__absence"
-      is-outlined
-    />
+      :class="`schedule-table-chip--${ABSENCE_CHIP_COLORS[cell.absence] || ScheduleChipColor.Red}`"
+      :title="absenceTitle"
+      class="schedule-table-chip schedule-table-chip--sm schedule-table-chip--outlined schedule-table-day-cell__absence"
+    >
+      <span class="schedule-table-chip__title">{{ absenceTitle }}</span>
+    </span>
 
     <!-- [Claude] Week: the day is split in two halves of the timeline, a pause goes to the
-         half it starts in. Month: one column. -->
-    <template v-else>
+         half it starts in. Month: one column, no wrapper. -->
+    <template v-else-if="splitAt !== undefined">
       <span
         v-for="(half, index) of halves"
         :key="index"
         class="schedule-table-day-cell__half"
       >
-        <schedule-table-chip
+        <span
           v-for="pause of half"
           :key="pause.id"
-          :color="pause.color"
+          :class="`schedule-table-chip--${pause.color}`"
           :title="pause.title"
-        />
+          class="schedule-table-chip schedule-table-chip--sm"
+        >
+          <span class="schedule-table-chip__title">{{ pause.title }}</span>
+        </span>
+      </span>
+    </template>
+    <template v-else>
+      <span
+        v-for="pause of pauses"
+        :key="pause.id"
+        :class="`schedule-table-chip--${pause.color}`"
+        :title="pause.title"
+        class="schedule-table-chip schedule-table-chip--sm"
+      >
+        <span class="schedule-table-chip__title">{{ pause.title }}</span>
       </span>
     </template>
   </button>
@@ -48,7 +68,6 @@ import {
 import type { CalendarCell } from '../../types';
 import { pauseChipColor } from '../../utils/chips';
 import { formatTimeInZone, zonedParts } from '../../utils/date';
-import ScheduleTableChip from './schedule-table-chip.vue';
 
 const props = defineProps<{
 	cell?: CalendarCell;
@@ -82,12 +101,16 @@ const pauses = computed(() =>
 		})),
 );
 
+const absenceTitle = computed(() =>
+	props.cell?.absence
+		? t(`scheduleTable.absence.${ABSENCE_KEYS[props.cell.absence]}`)
+		: '',
+);
+
+// [Claude] Week only: Month draws the pauses in one column.
 const halves = computed(() => {
 	const { splitAt } = props;
-	if (splitAt === undefined)
-		return [
-			pauses.value,
-		];
+	if (splitAt === undefined) return [];
 	return [
 		pauses.value.filter((p) => p.startMinutes < splitAt),
 		pauses.value.filter((p) => p.startMinutes >= splitAt),
@@ -140,6 +163,12 @@ const isDisabled = computed(
 
 .schedule-table-day-cell:disabled {
   cursor: default;
+}
+
+/* [Claude] Month: the chips stack in one column right in the cell (Week has halves). */
+.schedule-table-day-cell:not(.schedule-table-day-cell--split, .schedule-table-day-cell--absence) {
+  flex-direction: column;
+  gap: 1px;
 }
 
 .schedule-table-day-cell--working {

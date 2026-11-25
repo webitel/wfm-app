@@ -31,7 +31,7 @@
         :is-schedule-row="shifts"
         :range="range"
         :readonly="readonly"
-        :resources="resources"
+        :resources="windowed"
         :selected="selected"
         :time-zone="timeZone"
         :timeline="timeline"
@@ -49,7 +49,7 @@
         :forecast="forecast"
         :is-schedule-row="shifts"
         :readonly="readonly"
-        :resources="resources"
+        :resources="windowed"
         :selected="selected"
         :time-zone="timeZone"
         :timeline="timeline"
@@ -100,6 +100,7 @@ import ScheduleTableTotal from './components/schedule-table-total.vue';
 import ScheduleTableDayView from './components/view/schedule-table-day-view.vue';
 import ScheduleTablePeriodView from './components/view/schedule-table-period-view.vue';
 import { useCellMenu } from './composables/useCellMenu';
+import { useRowWindow } from './composables/useRowWindow';
 import type {
 	CalendarBounds,
 	CalendarForecast,
@@ -175,6 +176,9 @@ const timeZone = computed(
 
 const isForecastCollapsed = ref(false);
 
+// [Claude] --schedule-table-row-height: an agent row before it is measured.
+const ROW_HEIGHT = 48;
+
 const resources = computed<ScheduleTableResource[]>(() => {
 	const agents = props.rows.map((row) => ({
 		id: row.agent.id,
@@ -225,11 +229,27 @@ const isNearEnd = (el: Element) =>
 	el.scrollHeight - el.scrollTop - el.clientHeight < el.clientHeight;
 
 const onGridScroll = (event: Event) => {
+	rowWindow.onScroll();
 	if (props.hasMore && !props.loading && isNearEnd(event.target as Element))
 		emit('load-more');
 };
 
 const grid = useTemplateRef<HTMLElement>('grid');
+
+/* [Claude] ------------------------------------------------------- Row virtualization */
+
+// [Claude] Only the agent rows near the viewport are drawn (QCalendar draws all it gets).
+const rowWindow = useRowWindow({
+	resources,
+	scroller: grid,
+	rowHeight: ROW_HEIGHT,
+	resetKey: () => [
+		view.value,
+		date.value,
+		range.value,
+	],
+});
+const { windowed } = rowWindow;
 
 // [Claude] A page that does not fill the screen gives no scroll: ask for the next one at once.
 watch(

@@ -53,7 +53,9 @@ export interface CalendarRow {
 	confirmed?: boolean;
 }
 
-// [Claude] A row of the grid: the Forecast row on top, then one per agent.
+// [Claude] A row of the grid: the Forecast row on top, then one per agent. A spacer stands
+// [Claude] for the agent rows scrolled out of view (useRowWindow): QCalendar sizes it by
+// [Claude] `height` and the slots draw nothing in it.
 export type ScheduleTableResource =
 	| {
 			id: string;
@@ -63,6 +65,11 @@ export type ScheduleTableResource =
 			id: string;
 			isForecast?: false;
 			row: CalendarRow;
+	  }
+	| {
+			id: string;
+			isSpacer: true;
+			height: number;
 	  };
 
 export interface Holiday {
