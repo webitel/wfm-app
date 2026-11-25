@@ -1,17 +1,54 @@
-/* [Claude] DayPilot Lite (theme scheduler_default) themed with ui-sdk tokens; cell colours
-   (Figma WFM): green = shift, peach = absence, yellow = pause, light blue = locked, pink = holiday. */
-.schedule-calendar {
-	--wfm-calendar-shift-bg: var(--p-green-100, #d9f7e3);
-	--wfm-calendar-pause-bg: var(--p-yellow-300, #fde68a);
-	--wfm-calendar-absence-bg: var(--p-orange-100, #ffe8d6);
-	--wfm-calendar-locked-bg: var(--p-sky-100, #e0f2fe);
-	--wfm-calendar-holiday-bg: var(--p-pink-100, #fce7f3);
-	--wfm-calendar-outside-bg: var(--p-surface-100, #f1f5f9);
-	--wfm-calendar-forecast-bg: var(--p-surface-300, #cbd5e1);
-	--wfm-calendar-fact-low-bg: var(--p-red-400, #f87171);
-	--wfm-calendar-fact-medium-bg: var(--p-yellow-400, #facc15);
-	--wfm-calendar-fact-high-bg: var(--p-green-400, #4ade80);
+/* [Claude] DayPilot Lite (theme scheduler_default) styled after Figma WFM "Final Design Version"
+   (Schedule Day / Week / Month) with no Vue inside the grid: events, row heads and areas are
+   HTML strings and classes set in the-schedule-calendar.vue. Colours are the Figma tokens
+   (Components/Schedule table, Calendar, Forcast), app tokens where the app has them. */
+.schedule-calendar,
+.menu_default_main {
+	/* [Claude] Figma Components/Calendar/Item: day and hour chips of the head. */
+	--wfm-head-bg: #e7e9ef;
+	--wfm-head-color: #1f222e;
+	--wfm-head-weekend-bg: #f9d2d2;
+	--wfm-head-weekend-color: #000;
+	--wfm-head-holiday-bg: #e54c87;
+	--wfm-head-holiday-color: #f9d2d2;
+	/* [Claude] Figma Components/Schedule table/Time-period. */
+	--wfm-cell-bg: #f9f9fb;
+	--wfm-working-bg: #24a850;
+	--wfm-working-color: #eafbef;
+	--wfm-pause-bg: #e28136;
+	--wfm-day-off-bg: #f9d2d2;
+	--wfm-sick-bg: #f9d2d2;
+	--wfm-vacation-bg: #d2f4f9;
+	--wfm-locked-bg: #e7e9ef;
+	--wfm-outside-bg: #f0f1f5;
+	/* [Claude] Figma Components/Forcast and Colors. */
+	--wfm-forecast-label-bg: #e0e3eb;
+	--wfm-forecast-target-bg: #e0e3eb;
+	--wfm-forecast-low-bg: #e54c4c;
+	--wfm-forecast-medium-bg: #e28136;
+	--wfm-forecast-high-bg: #24a850;
+	/* [Claude] Figma Checkbox, Avatar, Icon. */
+	--wfm-checkbox-border: #3d455c;
+	--wfm-checkbox-on: var(--p-primary-color, #ecae13);
+	--wfm-avatar-bg: linear-gradient(135deg, #5fc79a, #3a9f8c);
+	--wfm-icon: var(--icon-color, #667399);
+	--wfm-icon-disabled: #c2c7d6;
+	--wfm-gap: var(--content-wrapper-color, #fff);
+	--wfm-border: var(--p-content-border-color, #e2e8f0);
 
+	/* [Claude] Icons drawn as masks: ui-sdk keeps its own icons inside wt-icon. */
+	--wfm-icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z'/%3E%3C/svg%3E");
+	--wfm-icon-delete: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 3h6l1 2h4v2H4V5h4l1-2Zm-3 6h12l-1 12H7L6 9Z'/%3E%3C/svg%3E");
+	--wfm-icon-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5Z'/%3E%3C/svg%3E");
+	--wfm-icon-add: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z'/%3E%3C/svg%3E");
+	--wfm-icon-add-square: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 2v14h14V5H5Zm6 3h2v3h3v2h-3v3h-2v-3H8v-2h3V8Z'/%3E%3C/svg%3E");
+	--wfm-icon-edit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m15.2 4.2 4.6 4.6L9 19.6H4.4V15L15.2 4.2Z'/%3E%3C/svg%3E");
+	--wfm-icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m10 6 6 6-6 6-1.4-1.4 4.6-4.6-4.6-4.6L10 6Z'/%3E%3C/svg%3E");
+	--wfm-icon-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m9.5 16.2-4.2-4.2-1.4 1.4 5.6 5.6 11-11-1.4-1.4-9.6 9.6Z'/%3E%3C/svg%3E");
+}
+
+/* [Claude] ------------------------------------------------------------- Layout */
+.schedule-calendar {
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing-xs);
@@ -38,58 +75,301 @@
 	margin: auto;
 }
 
-/* [Claude] Mounted Vue content fills its DayPilot box (DayPilot wraps it in a plain div). */
-.schedule-calendar .scheduler_default_event_inner > div,
-.schedule-calendar .scheduler_default_rowheader_inner > div {
-	flex: 1;
-	align-self: stretch;
-	min-width: 0;
+/* [Claude] -------------------------------------------------------------- Grid */
+/* [Claude] DayPilot's default theme reads these variables (declared on its root, so they are
+   set there too). Figma has no grid lines: cells are tiles with gaps in the wrapper colour. */
+.schedule-calendar .scheduler_default_main {
+	--dp-scheduler-font-family: inherit;
+	--dp-scheduler-font-size: 14px;
+	--dp-scheduler-border-color: transparent;
+	--dp-scheduler-border-inner-color: transparent;
+	--dp-scheduler-grid-line-color: var(--wfm-gap);
+	--dp-scheduler-header-bg-color: var(--wfm-gap);
+	--dp-scheduler-header-color: var(--wfm-head-color);
+	--dp-scheduler-cell-bg-color: var(--wfm-cell-bg);
+	--dp-scheduler-cell-business-bg-color: var(--wfm-cell-bg);
+	--dp-scheduler-rowheader-padding: 0;
+	--dp-scheduler-event-color: var(--text-main-color);
+	--dp-scheduler-event-border: none;
+	--dp-scheduler-event-border-radius: 4px;
+	--dp-scheduler-event-padding: 0;
+	--dp-scheduler-event-horizontal-align: center;
+	--dp-scheduler-shadow-color: var(--wfm-working-bg);
+	--dp-scheduler-shadow-border-color: var(--wfm-working-bg);
+	--dp-scheduler-timeheader-padding: 0;
+
+	border: none;
 }
 
-.schedule-calendar .wfm-dp-node {
+/* [Claude] Grid lines one tile gap wide: the cells read as separate tiles. */
+.schedule-calendar .scheduler_default_matrix_vertical_line {
+	width: 2px !important;
+}
+
+.schedule-calendar .scheduler_default_matrix_horizontal_line {
+	height: 2px !important;
+}
+
+/* [Claude] --------------------------------------------------------------- Head */
+/* [Claude] Each day / hour is a 24 px chip with a 2 px gap (Figma Calendar/Item). */
+.schedule-calendar .scheduler_default_timeheadercol_inner,
+.schedule-calendar .scheduler_default_timeheadergroup_inner {
+	inset: 0 1px 2px;
+	border: none;
+	border-radius: 4px;
+	background: var(--wfm-head-bg);
+	color: var(--wfm-head-color);
+	font-size: 10px;
+	font-weight: 600;
+	gap: 4px;
+}
+
+.schedule-calendar .wfm-head--hour .scheduler_default_timeheadercol_inner {
+	font-size: 8px;
+}
+
+.schedule-calendar .wfm-head__number {
+	font-weight: 700;
+}
+
+.schedule-calendar .wfm-head--weekend .scheduler_default_timeheadercol_inner {
+	background: var(--wfm-head-weekend-bg);
+	color: var(--wfm-head-weekend-color);
+}
+
+.schedule-calendar .wfm-head--holiday .scheduler_default_timeheadercol_inner {
+	background: var(--wfm-head-holiday-bg);
+	color: var(--wfm-head-holiday-color);
+}
+
+.schedule-calendar .wfm-head--link {
+	cursor: pointer;
+}
+
+.schedule-calendar
+	.wfm-head--link:hover
+	.scheduler_default_timeheadercol_inner {
+	filter: brightness(0.95);
+}
+
+/* [Claude] -------------------------------------------------------------- Cells */
+/* [Claude] Days outside the schedule, hours outside the timeline. */
+.schedule-calendar .wfm-cell--outside {
+	background: var(--wfm-outside-bg);
+}
+
+/* [Claude] Weekend columns are tinted (Figma Week / Month). */
+.schedule-calendar .wfm-cell--weekend {
+	background: var(--wfm-outside-bg);
+}
+
+/* [Claude] An empty agent-day shows the "+" square (Figma), stronger on hover. */
+.schedule-calendar .wfm-cell--empty {
+	cursor: pointer;
+}
+
+.schedule-calendar .wfm-cell--empty::after {
+	display: block;
+	background: var(--wfm-icon-disabled);
+	height: 100%;
+	content: "";
+	mask: var(--wfm-icon-add-square) center / 16px no-repeat;
+}
+
+.schedule-calendar .wfm-cell--empty:hover::after {
+	background: var(--wfm-icon);
+}
+
+/* [Claude] --------------------------------------------------------- Row heads */
+.schedule-calendar .scheduler_default_rowheader,
+.schedule-calendar .scheduler_default_corner {
+	background: var(--wfm-gap);
+}
+
+.schedule-calendar .scheduler_default_rowheader_inner {
+	border: none;
+}
+
+/* [Claude] Agent card: avatar and name on white, right of the checkbox (Figma Agent Info Card). */
+.schedule-calendar .wfm-agent {
 	display: flex;
+	align-items: center;
+	gap: 4px;
+	box-sizing: border-box;
+	/* [Claude] Room for the checkbox on the left and the mark / delete areas on the right. */
+	margin: 8px 2px 8px 26px;
+	padding-right: 56px;
+	width: 100%;
+	height: 24px;
+	color: var(--text-main-color);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 24px;
+}
+
+.schedule-calendar .wfm-agent__avatar {
+	display: inline-flex;
+	flex-shrink: 0;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	background: var(--wfm-avatar-bg);
+	width: 24px;
+	height: 24px;
+	color: #fff;
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 1;
+}
+
+.schedule-calendar .wfm-agent__name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* [Claude] Forecast head: grey panel title with a chevron (Figma Expansion-panel header). */
+.schedule-calendar .wfm-row--forecast .scheduler_default_rowheader_inner {
+	inset: 0 2px 2px 0;
+	border-radius: 4px;
+	background: var(--wfm-forecast-label-bg);
+}
+
+.schedule-calendar .wfm-agent--forecast {
+	margin: 0;
+	padding: 0 40px 0 8px;
+	height: 100%;
+}
+
+/* [Claude] Checkbox drawn on its area (Figma Checkbox 24): a box, ticked when selected. */
+.schedule-calendar .wfm-check {
+	cursor: pointer;
+}
+
+.schedule-calendar .wfm-check::before {
+	flex: none;
+	box-sizing: border-box;
+	margin: auto;
+	border: 2px solid var(--wfm-checkbox-border);
+	border-radius: 4px;
+	width: 18px;
+	height: 18px;
+	content: "";
+}
+
+.schedule-calendar .wfm-check--on::before {
+	border-color: var(--wfm-checkbox-on);
+	background: var(--wfm-checkbox-on);
+}
+
+.schedule-calendar .wfm-check--on::after {
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	background: #fff;
+	width: 14px;
+	height: 14px;
+	content: "";
+	mask: var(--wfm-icon-check) center / contain no-repeat;
+}
+
+.schedule-calendar .wfm-check--disabled {
+	opacity: 0.4;
+	cursor: default;
+}
+
+/* [Claude] An icon button drawn on its area by a mask in the icon colour. */
+.wfm-button {
+	display: inline-flex;
+	cursor: pointer;
+}
+
+.wfm-button::before {
+	flex: none;
+	margin: auto;
+	background: var(--wfm-icon);
+	width: 16px;
+	height: 16px;
+	content: "";
+	mask: center / contain no-repeat;
+}
+
+.wfm-button--delete::before {
+	mask-image: var(--wfm-icon-delete);
+}
+
+.wfm-button--close::before {
+	mask-image: var(--wfm-icon-close);
+	width: 10px;
+	height: 10px;
+}
+
+.wfm-button--add::before {
+	mask-image: var(--wfm-icon-add);
+}
+
+.wfm-button--edit::before {
+	mask-image: var(--wfm-icon-edit);
+}
+
+.wfm-button--chevron::before {
+	transition: transform var(--transition, 0.2s);
+	width: 24px;
+	height: 24px;
+	mask-image: var(--wfm-icon-chevron);
+}
+
+.wfm-button--open::before {
+	transform: rotate(90deg);
+}
+
+.schedule-calendar .wfm-icon,
+.menu_default_main .wfm-icon {
+	display: inline-flex;
+	width: 20px;
+	height: 20px;
+}
+
+.schedule-calendar .wfm-icon svg,
+.menu_default_main .wfm-icon svg {
 	width: 100%;
 	height: 100%;
 }
 
-/* [Claude] ---------------------------------------------------- Theme overrides */
-.schedule-calendar .scheduler_default_main {
-	border-color: var(--wt-table-border-color, var(--p-surface-200));
-	font-family: inherit;
-}
-
-.schedule-calendar .scheduler_default_rowheader,
-.schedule-calendar .scheduler_default_corner,
-.schedule-calendar .scheduler_default_timeheadergroup,
-.schedule-calendar .scheduler_default_timeheadercol {
-	background: var(--content-wrapper-color);
-	color: var(--text-main-color);
-}
-
-.schedule-calendar .scheduler_default_rowheader_inner,
-.schedule-calendar .scheduler_default_timeheadergroup_inner,
-.schedule-calendar .scheduler_default_timeheadercol_inner {
-	border-color: var(--wt-table-border-color, var(--p-surface-200));
-}
-
-.schedule-calendar .scheduler_default_cell {
-	background: var(--content-wrapper-color);
-}
-
-.schedule-calendar .scheduler_default_event_inner {
-	border: none;
-	background: transparent;
-	padding: 0;
-	color: var(--text-main-color);
-}
-
+/* [Claude] ------------------------------------------------------------ Events */
+/* [Claude] An event's colour is the theme variable set on its class; hover keeps it. */
 .schedule-calendar .wfm-event {
+	--wfm-event-bg: transparent;
+	--dp-scheduler-event-background: var(--wfm-event-bg);
+	--dp-scheduler-event-background-hover: var(--wfm-event-bg);
+
 	cursor: pointer;
 }
 
-/* [Claude] A shift in Day is dragged: its own cursor (move) and DayPilot's resize cursor show. */
+.schedule-calendar .scheduler_default_event_inner {
+	/* [Claude] The tile gap: neighbour days do not merge into one bar. */
+	inset: 0 1px 2px;
+}
+
 .schedule-calendar .wfm-event--shift {
-	cursor: auto;
+	--wfm-event-bg: var(--wfm-working-bg);
+	--dp-scheduler-event-color: var(--wfm-working-color);
+}
+
+.schedule-calendar .wfm-event--day-off {
+	--wfm-event-bg: var(--wfm-day-off-bg);
+}
+
+.schedule-calendar .wfm-event--sick {
+	--wfm-event-bg: var(--wfm-sick-bg);
+}
+
+.schedule-calendar .wfm-event--vacation {
+	--wfm-event-bg: var(--wfm-vacation-bg);
+}
+
+.schedule-calendar .wfm-event--locked {
+	--wfm-event-bg: var(--wfm-locked-bg);
 }
 
 .schedule-calendar .wfm-event--forecast-day,
@@ -98,39 +378,203 @@
 	cursor: default;
 }
 
-/* [Claude] Day heads: weekend red, holiday pink; a date opens the Day view. */
-.schedule-calendar .wfm-head--weekend {
-	color: var(--negative-color, #e53935);
+.schedule-calendar .wfm-event--forecast-day .scheduler_default_event_inner,
+.schedule-calendar .wfm-event--forecast-hour .scheduler_default_event_inner {
+	border-radius: 0;
 }
 
-.schedule-calendar .wfm-head--holiday .scheduler_default_timeheadergroup_inner,
-.schedule-calendar .wfm-head--holiday {
-	background: var(--wfm-calendar-holiday-bg);
+/* [Claude] An agent-day: icons or shift times in the middle of the tile (Week: 10 px). */
+.schedule-calendar .wfm-day {
+	display: flex;
+	flex: 1;
+	justify-content: space-around;
+	align-items: center;
+	height: 100%;
+	font-size: 10px;
+	font-weight: 500;
 }
 
-.schedule-calendar .wfm-head--link {
-	cursor: pointer;
+.schedule-calendar .wfm-day--shifts {
+	flex-direction: column;
+	justify-content: center;
+	line-height: 1.2;
 }
 
-.schedule-calendar .wfm-head--link:hover {
-	text-decoration: underline;
+.schedule-calendar .wfm-day__part {
+	display: flex;
+	flex: 1;
+	justify-content: center;
 }
 
-/* [Claude] Cells: outside the schedule dates; empty agent-days show "+" on hover. */
-.schedule-calendar .wfm-cell--outside {
-	background: var(--wfm-calendar-outside-bg);
+.schedule-calendar .wfm-lock {
+	background: var(--wfm-icon);
+	width: 16px;
+	height: 16px;
+	mask: var(--wfm-icon-lock) center / contain no-repeat;
 }
 
-.schedule-calendar .wfm-cell--empty {
-	cursor: pointer;
+/* [Claude] A shift in Day: green 15-minute chips with a 1 px gap (Figma Hour / Quarter); the
+   width of a chip comes from the script (--wfm-quarter). Pauses are orange chips on top. */
+.schedule-calendar .wfm-event--shift .scheduler_default_event_inner {
+	inset: 0 0 2px;
+	border-radius: 0;
 }
 
-.schedule-calendar .wfm-cell--empty:hover::after {
+.schedule-calendar .wfm-event--shift .scheduler_default_event_inner::after {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	background: repeating-linear-gradient(
+		to right,
+		transparent 0,
+		transparent calc(var(--wfm-quarter, 10px) - 1px),
+		var(--wfm-gap) calc(var(--wfm-quarter, 10px) - 1px),
+		var(--wfm-gap) var(--wfm-quarter, 10px)
+	);
+	pointer-events: none;
+	content: "";
+}
+
+.schedule-calendar:not(.schedule-calendar--readonly) .wfm-event--shift {
+	cursor: move;
+}
+
+/* [Claude] The resize edges (DayPilot's resize margin) darken on hover. */
+.schedule-calendar:not(.schedule-calendar--readonly) .wfm-event--shift:hover
+	.scheduler_default_event_inner {
+	box-shadow:
+		inset 4px 0 0 0 rgb(0 0 0 / 0.25),
+		inset -4px 0 0 0 rgb(0 0 0 / 0.25);
+}
+
+.schedule-calendar .wfm-pause {
+	z-index: 2;
+	background: var(--wfm-pause-bg);
+	cursor: grab;
+	touch-action: none;
+	user-select: none;
+}
+
+.schedule-calendar--readonly .wfm-pause {
+	cursor: default;
+}
+
+.schedule-calendar .wfm-button--close {
+	z-index: 4;
+	border-radius: 50%;
+	background: var(--wfm-gap);
+}
+
+/* [Claude] ---------------------------------------------------------- Forecast */
+/* [Claude] Figma Forecast Bar: the hour / day total on top, then bars with their value above,
+   full height, no scale; 2 px between bars. */
+.schedule-calendar .wfm-forecast {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 2px;
+	height: 100%;
+	color: var(--text-main-color);
+}
+
+.schedule-calendar .wfm-forecast__number {
+	background: var(--wfm-gap);
+	font-size: 12px;
+	line-height: 16px;
+	text-align: center;
+}
+
+.schedule-calendar .wfm-forecast__bars {
+	display: flex;
+	flex: 1;
+	gap: 1px;
+	min-height: 0;
+}
+
+.schedule-calendar .wfm-forecast__item {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.schedule-calendar .wfm-forecast__value {
+	background: var(--wfm-gap);
+	overflow: hidden;
+	font-size: 10px;
+	font-weight: 500;
+	line-height: 16px;
+	text-align: center;
+}
+
+.schedule-calendar .wfm-forecast__bar {
+	flex: 1;
+	min-height: 4px;
+}
+
+.schedule-calendar .wfm-forecast__bar--forecast,
+.schedule-calendar .wfm-forecast__bar--none {
+	background: var(--wfm-forecast-target-bg);
+}
+
+.schedule-calendar .wfm-forecast__bar--low {
+	background: var(--wfm-forecast-low-bg);
+}
+
+.schedule-calendar .wfm-forecast__bar--medium {
+	background: var(--wfm-forecast-medium-bg);
+}
+
+.schedule-calendar .wfm-forecast__bar--high {
+	background: var(--wfm-forecast-high-bg);
+}
+
+/* [Claude] -------------------------------------------------------------- Menu */
+/* [Claude] DayPilot puts its menu into body, so these rules are not under .schedule-calendar.
+   No icon column: the icon is part of the item HTML. DayPilot injects its CSS after ours, so
+   the class is doubled to win. */
+.menu_default_main.menu_default_main {
+	box-shadow: var(--elevation-10);
+	border: none;
+	border-radius: var(--border-radius, 4px);
+	background: var(--content-wrapper-color, #fff);
+	padding: var(--spacing-2xs, 4px) 0;
+	color: var(--text-main-color);
+	font-family: inherit;
+	font-size: 13px;
+}
+
+.menu_default_main.menu_default_main::before {
+	display: none;
+}
+
+.menu_default_main.menu_default_main .menu_default_title {
+	border-bottom: 1px solid var(--wfm-border);
+	background: transparent;
+	padding: var(--spacing-2xs, 4px) var(--spacing-xs, 8px);
+	color: var(--text-secondary-color, inherit);
+	font-size: 12px;
+}
+
+.menu_default_main.menu_default_main a {
+	padding: 2px var(--spacing-xs, 8px);
+	color: var(--text-main-color);
+}
+
+.menu_default_main.menu_default_main a:hover {
+	background: var(--p-surface-100, #f1f5f9);
+}
+
+.menu_default_main.menu_default_main .menu_default_item_text {
+	padding: 0;
+	height: 24px;
+	line-height: 24px;
+}
+
+.wfm-menu-item {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	gap: var(--spacing-xs, 8px);
 	height: 100%;
-	color: var(--text-secondary-color, #888);
-	font-size: 18px;
-	content: "+";
 }

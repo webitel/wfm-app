@@ -42,7 +42,6 @@ export interface CellAction {
 // [Claude] One item of the cell menu.
 export interface CellMenuItem {
 	action: CellActionType;
-	icon: string;
 	text: string;
 	absence?: AbsenceType;
 	shift?: Shift;

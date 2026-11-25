@@ -52,8 +52,8 @@ const event = (
 	start,
 	end,
 	resource,
+	// [Claude] Text, colour and areas are filled in onBeforeEventRender from the tags.
 	text: '',
-	cssClass: `wfm-event wfm-event--${tags.kind}`,
 	// [Claude] Only a shift of the Day view is dragged; DayPilot leaves the rest alone.
 	moveDisabled: tags.kind !== 'shift',
 	resizeDisabled: tags.kind !== 'shift',
