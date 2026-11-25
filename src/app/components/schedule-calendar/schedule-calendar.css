@@ -1,0 +1,136 @@
+/* [Claude] DayPilot Lite (theme scheduler_default) themed with ui-sdk tokens; cell colours
+   (Figma WFM): green = shift, peach = absence, yellow = pause, light blue = locked, pink = holiday. */
+.schedule-calendar {
+	--wfm-calendar-shift-bg: var(--p-green-100, #d9f7e3);
+	--wfm-calendar-pause-bg: var(--p-yellow-300, #fde68a);
+	--wfm-calendar-absence-bg: var(--p-orange-100, #ffe8d6);
+	--wfm-calendar-locked-bg: var(--p-sky-100, #e0f2fe);
+	--wfm-calendar-holiday-bg: var(--p-pink-100, #fce7f3);
+	--wfm-calendar-outside-bg: var(--p-surface-100, #f1f5f9);
+	--wfm-calendar-forecast-bg: var(--p-surface-300, #cbd5e1);
+	--wfm-calendar-fact-low-bg: var(--p-red-400, #f87171);
+	--wfm-calendar-fact-medium-bg: var(--p-yellow-400, #facc15);
+	--wfm-calendar-fact-high-bg: var(--p-green-400, #4ade80);
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+	height: 100%;
+	min-height: 0;
+}
+
+.schedule-calendar__body {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+	overflow: hidden;
+}
+
+.schedule-calendar__frame {
+	/* [Claude] Out of the flow: its height follows the body and never feeds back into it. */
+	position: absolute;
+	inset: 0;
+}
+
+.schedule-calendar__loader {
+	position: absolute;
+	inset: 0;
+	margin: auto;
+}
+
+/* [Claude] Mounted Vue content fills its DayPilot box (DayPilot wraps it in a plain div). */
+.schedule-calendar .scheduler_default_event_inner > div,
+.schedule-calendar .scheduler_default_rowheader_inner > div {
+	flex: 1;
+	align-self: stretch;
+	min-width: 0;
+}
+
+.schedule-calendar .wfm-dp-node {
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+/* [Claude] ---------------------------------------------------- Theme overrides */
+.schedule-calendar .scheduler_default_main {
+	border-color: var(--wt-table-border-color, var(--p-surface-200));
+	font-family: inherit;
+}
+
+.schedule-calendar .scheduler_default_rowheader,
+.schedule-calendar .scheduler_default_corner,
+.schedule-calendar .scheduler_default_timeheadergroup,
+.schedule-calendar .scheduler_default_timeheadercol {
+	background: var(--content-wrapper-color);
+	color: var(--text-main-color);
+}
+
+.schedule-calendar .scheduler_default_rowheader_inner,
+.schedule-calendar .scheduler_default_timeheadergroup_inner,
+.schedule-calendar .scheduler_default_timeheadercol_inner {
+	border-color: var(--wt-table-border-color, var(--p-surface-200));
+}
+
+.schedule-calendar .scheduler_default_cell {
+	background: var(--content-wrapper-color);
+}
+
+.schedule-calendar .scheduler_default_event_inner {
+	border: none;
+	background: transparent;
+	padding: 0;
+	color: var(--text-main-color);
+}
+
+.schedule-calendar .wfm-event {
+	cursor: pointer;
+}
+
+/* [Claude] A shift in Day is dragged: its own cursor (move) and DayPilot's resize cursor show. */
+.schedule-calendar .wfm-event--shift {
+	cursor: auto;
+}
+
+.schedule-calendar .wfm-event--forecast-day,
+.schedule-calendar .wfm-event--forecast-hour,
+.schedule-calendar--readonly .wfm-event {
+	cursor: default;
+}
+
+/* [Claude] Day heads: weekend red, holiday pink; a date opens the Day view. */
+.schedule-calendar .wfm-head--weekend {
+	color: var(--negative-color, #e53935);
+}
+
+.schedule-calendar .wfm-head--holiday .scheduler_default_timeheadergroup_inner,
+.schedule-calendar .wfm-head--holiday {
+	background: var(--wfm-calendar-holiday-bg);
+}
+
+.schedule-calendar .wfm-head--link {
+	cursor: pointer;
+}
+
+.schedule-calendar .wfm-head--link:hover {
+	text-decoration: underline;
+}
+
+/* [Claude] Cells: outside the schedule dates; empty agent-days show "+" on hover. */
+.schedule-calendar .wfm-cell--outside {
+	background: var(--wfm-calendar-outside-bg);
+}
+
+.schedule-calendar .wfm-cell--empty {
+	cursor: pointer;
+}
+
+.schedule-calendar .wfm-cell--empty:hover::after {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	color: var(--text-secondary-color, #888);
+	font-size: 18px;
+	content: "+";
+}
