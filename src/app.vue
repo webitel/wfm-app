@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, provide } from 'vue';
+import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useUserinfoStore } from './modules/userinfo/store/userinfoStore';
 
