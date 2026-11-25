@@ -69,10 +69,12 @@
             v-model:selected="selected"
             v-model:view="view"
             :loading="isLoading"
+            :has-more="hasMore"
             :rows="rows"
             :total="total"
             class="the-agents__calendar"
             @action="onAction"
+            @load-more="store.loadMore"
           />
 
           <!-- [Claude] No agent matches: the standard Webitel placeholder (US_02.03, US_02.04). -->
@@ -138,6 +140,7 @@ const {
 	total,
 	selected,
 	isLoading,
+	hasMore,
 	filtersManager,
 	isFiltersRestoring,
 	filterValues,

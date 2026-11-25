@@ -12,6 +12,8 @@
 	--schedule-table-cell-filled-border: rgba(255, 255, 255, 0.7);
 	--schedule-table-cell-empty-background: var(--content-wrapper-color);
 	--schedule-table-cell-working-background: #d5f6e0;
+	/* [Claude] Resize edges of a shift or pause in the Day view. */
+	--schedule-table-drag-handle: #24a850;
 	--schedule-table-cell-absence-background: #f9e3d2;
 	--schedule-table-cell-off-background: #f9d2d2;
 	--schedule-table-cell-locked-border: #e3e8f0;
@@ -62,6 +64,7 @@
 	--schedule-table-cell-border: rgba(255, 255, 255, 0.05);
 	--schedule-table-cell-filled-border: rgba(0, 0, 0, 0.3);
 	--schedule-table-cell-working-background: #1d4a2c;
+	--schedule-table-drag-handle: #3ccf6e;
 	--schedule-table-cell-absence-background: #4a3424;
 	--schedule-table-cell-off-background: #4a2626;
 	--schedule-table-cell-locked-border: var(--grey-darken-3);

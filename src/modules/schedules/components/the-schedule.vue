@@ -153,12 +153,14 @@
             :forecast="forecast"
             :holidays="holidays"
             :loading="isLoading"
+            :has-more="hasMore"
             :readonly="isReadonly"
             :rows="rows"
             :total="total"
             :timeline="schedule.timeline"
             class="the-schedule__calendar"
             @action="onAction"
+            @load-more="store.loadMore"
           />
         </section>
       </div>
@@ -248,6 +250,7 @@ import AddAgentsPopup from '../../../app/components/schedule-table/popups/add-ag
 import DeleteShiftsConfirmPopup from '../../../app/components/schedule-table/popups/delete-shifts-confirm-popup.vue';
 import TheScheduleTable from '../../../app/components/schedule-table/the-schedule-table.vue';
 import {
+	type CalendarShift,
 	type CellAction,
 	WfmApiError,
 } from '../../../app/components/schedule-table/types';
@@ -285,6 +288,7 @@ const {
 	total,
 	selected,
 	isLoading,
+	hasMore,
 	bounds,
 	isReadonly,
 } = storeToRefs(store);
@@ -557,6 +561,28 @@ const updateShift = async (params: UpdateShiftParams) => {
 	}
 };
 
+// [Claude] A shift dragged in the Day view. The row is reread either way, so a refused drop
+// [Claude] puts the shift back where it was.
+const saveDraggedShift = async (shift: CalendarShift) => {
+	isSaving.value = true;
+	try {
+		await updateAgentWorkingScheduleShift(schedule.value.id, {
+			id: shift.id,
+			etag: shift.etag,
+			startAt: shift.startAt,
+			endAt: shift.endAt,
+			pauses: shift.pauses,
+			skills: shift.skills,
+		});
+		await load();
+	} catch (error) {
+		await handleWriteError(error);
+		if (!(error instanceof WfmApiError && error.status === 409)) await load();
+	} finally {
+		isSaving.value = false;
+	}
+};
+
 /* [Claude] -------------------------------------------------------------- Absences */
 
 const isAddAbsenceOpen = ref(false);
@@ -642,6 +668,9 @@ const onAction = async (action: CellAction) => {
 				pauses: action.shift.pauses.filter((p) => p.id !== action.pause.id),
 				skills: action.shift.skills,
 			});
+			break;
+		case CellActionType.DragShift:
+			await saveDraggedShift(action.shift);
 			break;
 		case CellActionType.DeleteAgent:
 			askDeleteAgents([

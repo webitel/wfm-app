@@ -67,6 +67,7 @@
         :shifts="dayShifts(scope.resource.row)"
         :start-at="timelineStartAt"
         :time-zone="timeZone"
+        @drag-shift="emit('drag-shift', scope.resource.row, $event)"
         @open-absence="emit('open-cell', $event, scope.resource.row, date)"
         @open-empty="emit('open-cell', $event, scope.resource.row, date)"
         @open-pause="(event, shift, pause) => emit('open-pause', event, scope.resource.row, shift, pause)"
@@ -147,6 +148,10 @@ const emit = defineEmits<{
 	];
 	'delete-agent': [
 		row: CalendarRow,
+	];
+	'drag-shift': [
+		row: CalendarRow,
+		shift: CalendarShift,
 	];
 }>();
 

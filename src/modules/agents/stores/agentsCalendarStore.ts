@@ -15,6 +15,11 @@ import {
 	rangeForView,
 	todayKey,
 } from '../../../app/components/schedule-table/utils/date';
+import {
+	AGENTS_PAGE_SIZE,
+	appendRows,
+	reloadSize,
+} from '../../../app/components/schedule-table/utils/paging';
 import { CalendarView } from '../../../app/enums';
 
 // [Claude] Filter name of the search bar (dynamic-filter-search single-search-name).
@@ -35,6 +40,11 @@ export const useAgentsCalendarStore = defineStore('wfm/agents/calendar', () => {
 	const total = ref(0);
 	const selected = ref<string[]>([]);
 	const isLoading = ref(false);
+	const isLoadingMore = ref(false);
+	// [Claude] More agents on the server than shown (infinite scroll).
+	const hasMore = ref(false);
+	let pagesLoaded = 0;
+	let queryKey = '';
 
 	/* [Claude] ----------------------------------------------------- Filters */
 
@@ -89,26 +99,64 @@ export const useAgentsCalendarStore = defineStore('wfm/agents/calendar', () => {
 	// [Claude] Only the latest request may write the result: views switch faster than mocks answer.
 	let requestId = 0;
 
+	const query = () => {
+		const values = filterValues.value;
+		return {
+			date: period.value,
+			q: values[SEARCH_FILTER_NAME] as string | undefined,
+			teamId: toIds(values[FilterOption.Team]),
+			supervisorId: toIds(values[FilterOption.Supervisor]),
+			skillId: toIds(values[FilterOption.Skill]),
+		};
+	};
+
+	// [Claude] The first page of a new query, or all shown pages again for the same query.
 	const load = async () => {
 		requestId += 1;
 		const current = requestId;
+		const params = query();
+		const key = JSON.stringify(params);
+		if (key !== queryKey) pagesLoaded = 1;
+		queryKey = key;
+		const pages = Math.max(pagesLoaded, 1);
 		isLoading.value = true;
-		const values = filterValues.value;
+		isLoadingMore.value = false;
 		try {
 			const response = await searchAgentsAbsences({
-				date: period.value,
-				q: values[SEARCH_FILTER_NAME] as string | undefined,
-				teamId: toIds(values[FilterOption.Team]),
-				supervisorId: toIds(values[FilterOption.Supervisor]),
-				skillId: toIds(values[FilterOption.Skill]),
+				...params,
+				page: 1,
+				size: reloadSize(pages),
 			});
 			if (current !== requestId) return;
+			pagesLoaded = pages;
 			rows.value = response.items;
 			total.value = response.total;
+			hasMore.value = response.next;
 			const ids = new Set(response.items.map((r) => r.agent.id));
 			selected.value = selected.value.filter((id) => ids.has(id));
 		} finally {
 			if (current === requestId) isLoading.value = false;
+		}
+	};
+
+	// [Claude] The next page, when the user scrolls near the end of the table.
+	const loadMore = async () => {
+		if (!hasMore.value || isLoading.value || isLoadingMore.value) return;
+		const current = requestId;
+		isLoadingMore.value = true;
+		try {
+			const response = await searchAgentsAbsences({
+				...query(),
+				page: pagesLoaded + 1,
+				size: AGENTS_PAGE_SIZE,
+			});
+			if (current !== requestId) return;
+			pagesLoaded += 1;
+			rows.value = appendRows(rows.value, response.items);
+			total.value = response.total;
+			hasMore.value = response.next;
+		} finally {
+			if (current === requestId) isLoadingMore.value = false;
 		}
 	};
 
@@ -119,11 +167,14 @@ export const useAgentsCalendarStore = defineStore('wfm/agents/calendar', () => {
 		total,
 		selected,
 		isLoading,
+		isLoadingMore,
+		hasMore,
 		filtersManager,
 		isFiltersRestoring,
 		filterValues,
 		customRange,
 		period,
 		load,
+		loadMore,
 	};
 });

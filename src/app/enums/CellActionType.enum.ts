@@ -7,6 +7,8 @@ export const CellActionType = {
 	EditShift: 'edit-shift',
 	DeleteShift: 'delete-shift',
 	DeletePause: 'delete-pause',
+	// [Claude] A shift or one of its pauses dragged in the Day view: save its new times.
+	DragShift: 'drag-shift',
 	// [Claude] The trash icon of an agent row (US_05.07): the agent leaves the schedule.
 	DeleteAgent: 'delete-agent',
 } as const;

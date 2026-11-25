@@ -21,9 +21,12 @@
     />
 
     <template v-else>
+      <!-- [Claude] Drag the shift to move it, its edges to resize it; a press without a move
+           is a click and opens the shift menu. -->
       <button
-        v-for="shift of shifts"
+        v-for="shift of shownShifts"
         :key="shift.id"
+        :class="{ 'schedule-table-day-timeline__shift--draggable': !readonly }"
         :style="{
           ...placeOf(shift),
           backgroundPositionX: `${-xOf(shift.startAt)}px`,
@@ -32,17 +35,41 @@
         :title="`${formatTimeInZone(shift.startAt, timeZone)} - ${formatTimeInZone(shift.endAt, timeZone)}`"
         class="schedule-table-day-timeline__shift"
         type="button"
-        @click.stop="emit('open-shift', $event, shift)"
-      />
+        @click.stop="onPartClick(() => emit('open-shift', $event, shift))"
+        @pointerdown="startDrag($event, shift.id, DragMode.Move)"
+      >
+        <template v-if="!readonly">
+          <span
+            class="schedule-table-day-timeline__handle schedule-table-day-timeline__handle--start"
+            @pointerdown.stop="startDrag($event, shift.id, DragMode.Start)"
+          />
+          <span
+            class="schedule-table-day-timeline__handle schedule-table-day-timeline__handle--end"
+            @pointerdown.stop="startDrag($event, shift.id, DragMode.End)"
+          />
+        </template>
+      </button>
 
       <button
         v-for="pause of pauses"
         :key="pause.id"
+        :class="{ 'schedule-table-day-timeline__pause--draggable': !readonly }"
         :style="pause.place"
         class="schedule-table-day-timeline__pause"
         type="button"
-        @click.stop="emit('open-pause', $event, pause.shift, pause.pause)"
+        @click.stop="onPartClick(() => emit('open-pause', $event, pause.shift, pause.pause))"
+        @pointerdown="startDrag($event, pause.shift.id, DragMode.Move, pause.id)"
       >
+        <template v-if="!readonly">
+          <span
+            class="schedule-table-day-timeline__handle schedule-table-day-timeline__handle--start"
+            @pointerdown.stop="startDrag($event, pause.shift.id, DragMode.Start, pause.id)"
+          />
+          <span
+            class="schedule-table-day-timeline__handle schedule-table-day-timeline__handle--end"
+            @pointerdown.stop="startDrag($event, pause.shift.id, DragMode.End, pause.id)"
+          />
+        </template>
         <schedule-table-chip
           :color="pause.color"
           :subtitle="pause.subtitle"
@@ -56,7 +83,7 @@
 
 <script setup lang="ts">
 import type { WfmAbsenceType } from '@webitel/api-services/gen/models';
-import { computed } from 'vue';
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
 	ABSENCE_CHIP_COLORS,
@@ -66,6 +93,7 @@ import {
 import type { CalendarPause, CalendarShift } from '../../types';
 import { pauseChipColor } from '../../utils/chips';
 import { formatTimeInZone } from '../../utils/date';
+import { DragMode, dragPause, dragShift, isSameTimes } from '../../utils/drag';
 import ScheduleTableChip from './schedule-table-chip.vue';
 
 const props = defineProps<{
@@ -96,6 +124,10 @@ const emit = defineEmits<{
 		shift: CalendarShift,
 		pause: CalendarPause,
 	];
+	// [Claude] A shift or one of its pauses was dragged: the shift with its new times.
+	'drag-shift': [
+		shift: CalendarShift,
+	];
 }>();
 
 const { t } = useI18n();
@@ -115,8 +147,133 @@ const placeOf = ({ startAt, endAt }: { startAt: number; endAt: number }) => ({
 	width: `${xOf(endAt) - xOf(startAt)}px`,
 });
 
+/* [Claude] ------------------------------------------------------------ Drag and drop */
+
+const HOUR_MS = MINUTES_IN_HOUR * MINUTE_MS;
+// [Claude] px the pointer must go before a press becomes a drag (less = a click).
+const DRAG_THRESHOLD = 3;
+
+interface DragState {
+	origin: CalendarShift;
+	pauseId?: string;
+	mode: DragMode;
+	startX: number;
+	isMoved: boolean;
+}
+
+let drag: DragState | null = null;
+// [Claude] The click that ends a drag must not open a menu.
+let isClickSwallowed = false;
+// [Claude] The shift as it is being dragged, and after the drop until the page reloads it.
+const draft = ref<CalendarShift | null>(null);
+
+const shownShifts = computed(() =>
+	props.shifts.map((shift) =>
+		draft.value?.id === shift.id ? draft.value : shift,
+	),
+);
+
+const onPointerMove = (event: PointerEvent) => {
+	if (!drag) return;
+	const dx = event.clientX - drag.startX;
+	if (!drag.isMoved && Math.abs(dx) < DRAG_THRESHOLD) return;
+	drag.isMoved = true;
+	const deltaMs = (dx / props.hourWidth) * HOUR_MS;
+	draft.value = drag.pauseId
+		? dragPause({
+				shift: drag.origin,
+				pauseId: drag.pauseId,
+				mode: drag.mode,
+				deltaMs,
+			})
+		: dragShift({
+				shift: drag.origin,
+				neighbours: props.shifts.filter((s) => s.id !== drag?.origin.id),
+				mode: drag.mode,
+				deltaMs,
+				min: props.startAt,
+				max: props.startAt + props.hoursCount * HOUR_MS,
+			});
+};
+
+const stopListening = () => {
+	window.removeEventListener('pointermove', onPointerMove);
+	window.removeEventListener('pointerup', onPointerUp);
+	window.removeEventListener('pointercancel', cancelDrag);
+	window.removeEventListener('keydown', onKeydown);
+};
+
+// [Claude] The click comes right after pointerup, so the swallow flag lives one task.
+const swallowClick = () => {
+	isClickSwallowed = true;
+	setTimeout(() => {
+		isClickSwallowed = false;
+	});
+};
+
+function onPointerUp() {
+	stopListening();
+	const state = drag;
+	drag = null;
+	if (!state?.isMoved) return;
+	swallowClick();
+	if (draft.value && !isSameTimes(draft.value, state.origin)) {
+		emit('drag-shift', draft.value);
+	} else {
+		draft.value = null;
+	}
+}
+
+function cancelDrag() {
+	stopListening();
+	if (drag?.isMoved) swallowClick();
+	drag = null;
+	draft.value = null;
+}
+
+function onKeydown(event: KeyboardEvent) {
+	if (event.key === 'Escape') cancelDrag();
+}
+
+const startDrag = (
+	event: PointerEvent,
+	shiftId: string,
+	mode: DragMode,
+	pauseId?: string,
+) => {
+	if (props.readonly || event.button !== 0 || drag) return;
+	const origin = props.shifts.find((s) => s.id === shiftId);
+	if (!origin) return;
+	drag = {
+		origin,
+		pauseId,
+		mode,
+		startX: event.clientX,
+		isMoved: false,
+	};
+	window.addEventListener('pointermove', onPointerMove);
+	window.addEventListener('pointerup', onPointerUp);
+	window.addEventListener('pointercancel', cancelDrag);
+	window.addEventListener('keydown', onKeydown);
+};
+
+const onPartClick = (open: () => void) => {
+	if (!isClickSwallowed) open();
+};
+
+// [Claude] The page reloads the row after a drop (saved or not): the fresh shift object
+// [Claude] replaces the held draft.
+watch(
+	() => props.shifts.find((s) => s.id === draft.value?.id),
+	() => {
+		if (!drag) draft.value = null;
+	},
+);
+
+onBeforeUnmount(stopListening);
+
 const pauses = computed(() =>
-	props.shifts.flatMap((shift) =>
+	shownShifts.value.flatMap((shift) =>
 		shift.pauses.map((pause) => {
 			const width = Math.max(
 				xOf(pause.endAt) - xOf(pause.startAt) - 2 * CHIP_INSET,
@@ -149,6 +306,7 @@ const isLaneDisabled = computed(
 
 // [Claude] A click on the row outside shifts and pauses: the absence or an empty slot.
 const onLaneClick = (event: MouseEvent) => {
+	if (isClickSwallowed) return;
 	if (props.absence) emit('open-absence', event);
 	else if (!isLaneDisabled.value) emit('open-empty', event);
 };
@@ -191,6 +349,37 @@ const onLaneClick = (event: MouseEvent) => {
     var(--schedule-table-cell-filled-border) 1px,
     transparent 1px
   );
+}
+
+.schedule-table-day-timeline .schedule-table-day-timeline__shift--draggable,
+.schedule-table-day-timeline .schedule-table-day-timeline__pause--draggable {
+  cursor: move;
+  touch-action: none;
+  user-select: none;
+}
+
+/* [Claude] Edges to resize a shift or a pause: shown on hover, wide enough to grab. */
+.schedule-table-day-timeline__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 6px;
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.schedule-table-day-timeline__handle--start {
+  left: 0;
+}
+
+.schedule-table-day-timeline__handle--end {
+  right: 0;
+}
+
+.schedule-table-day-timeline__shift:hover > .schedule-table-day-timeline__handle,
+.schedule-table-day-timeline__pause:hover > .schedule-table-day-timeline__handle {
+  background: var(--schedule-table-drag-handle);
 }
 
 .schedule-table-day-timeline .schedule-table-day-timeline__pause {

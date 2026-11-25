@@ -12,7 +12,12 @@
       @update:view="changeView"
     />
 
-    <div class="schedule-table__grid">
+    <!-- [Claude] scroll does not bubble: caught on the way down from QCalendar's scroll area. -->
+    <div
+      ref="grid"
+      class="schedule-table__grid"
+      @scroll.capture="onGridScroll"
+    >
       <!-- [Claude] The wrapper keeps the state all views share (date, view, forecast toggle,
            selection) and the toolbar, menu and total; a view lays out its grid and rows. -->
       <schedule-table-period-view
@@ -49,6 +54,7 @@
         :time-zone="timeZone"
         :timeline="timeline"
         @delete-agent="deleteAgent"
+        @drag-shift="dragShift"
         @open-cell="cellMenu.openCellMenu"
         @open-pause="cellMenu.openPauseMenu"
         @open-shift="cellMenu.openShiftMenu"
@@ -85,7 +91,7 @@ import '@quasar/quasar-ui-qcalendar/QCalendarVariables.min.css';
 import './schedule-table.css';
 
 import { storeToRefs } from 'pinia';
-import { computed, ref, useTemplateRef } from 'vue';
+import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
 import { useUserinfoStore } from '../../../modules/userinfo/store/userinfoStore';
 import { CalendarView, CellActionType } from '../../enums';
 import ScheduleTableToolbar from './components/header/schedule-table-toolbar.vue';
@@ -98,6 +104,7 @@ import type {
 	CalendarBounds,
 	CalendarForecast,
 	CalendarRow,
+	CalendarShift,
 	CalendarTimeline,
 	CellAction,
 	DayKey,
@@ -127,6 +134,8 @@ const props = withDefaults(
 		loading?: boolean;
 		// [Claude] Agents matching the filters, on all pages; no footer when undefined.
 		total?: number;
+		// [Claude] More agents on the server: the table asks for them near the end of the scroll.
+		hasMore?: boolean;
 	}>(),
 	{
 		holidays: () => [],
@@ -151,6 +160,7 @@ const emit = defineEmits<{
 	action: [
 		action: CellAction,
 	];
+	'load-more': [];
 }>();
 
 const { timezone: userTimeZone } = storeToRefs(useUserinfoStore());
@@ -208,6 +218,44 @@ const toggleSelected = (id: string, value: boolean) => {
 		: selected.value.filter((s) => s !== id);
 };
 
+/* [Claude] ------------------------------------------------------------- Infinite scroll */
+
+// [Claude] The next page is asked for when less than a screen is left below.
+const isNearEnd = (el: Element) =>
+	el.scrollHeight - el.scrollTop - el.clientHeight < el.clientHeight;
+
+const onGridScroll = (event: Event) => {
+	if (props.hasMore && !props.loading && isNearEnd(event.target as Element))
+		emit('load-more');
+};
+
+const grid = useTemplateRef<HTMLElement>('grid');
+
+// [Claude] A page that does not fill the screen gives no scroll: ask for the next one at once.
+watch(
+	() => [
+		props.rows.length,
+		props.hasMore,
+		props.loading,
+		view.value,
+	],
+	async () => {
+		if (!props.hasMore || props.loading) return;
+		await nextTick();
+		// [Claude] QCalendarScheduler / QCalendarResource scroll in their own __scroll-area.
+		const scrollers = [
+			grid.value,
+			...(grid.value?.querySelectorAll('[class*="__scroll-area"]') || []),
+		].filter(
+			(el): el is HTMLElement => !!el && el.scrollHeight > el.clientHeight,
+		);
+		if (!scrollers.length || scrollers.some(isNearEnd)) emit('load-more');
+	},
+	{
+		flush: 'post',
+	},
+);
+
 /* [Claude] ------------------------------------------------------------------- Menu */
 
 const cellMenu = useCellMenu({
@@ -226,6 +274,16 @@ const deleteAgent = (row: CalendarRow) => {
 		type: CellActionType.DeleteAgent,
 		agent: row.agent,
 		date: date.value,
+	});
+};
+
+// [Claude] A shift or its pause dragged in the Day view: the page saves the new times.
+const dragShift = (row: CalendarRow, shift: CalendarShift) => {
+	emit('action', {
+		type: CellActionType.DragShift,
+		agent: row.agent,
+		date: date.value,
+		shift,
 	});
 };
 </script>
