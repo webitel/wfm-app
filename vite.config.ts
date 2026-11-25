@@ -22,8 +22,15 @@ export default ({ mode }) => {
 			// exclude: ['@webitel/ui-sdk'],
 			include: [
 				'clipboard-copy',
+				// [Claude] webitel-sdk depends on CJS-only `ee-ts`; without prebundling it the
+				// [Claude] browser fails on the named import (blank page in dev).
+				'webitel-sdk',
 				'deep-equal',
 				'deepmerge',
+				// [Claude] CJS-only, default-imported by ui-datalist filters and ui-sdk selects.
+				'deep-copy',
+				// [Claude] DayPilot Lite ships one CJS file (module.exports = { DayPilot }).
+				'@daypilot/daypilot-lite-javascript',
 			],
 		},
 		resolve: {

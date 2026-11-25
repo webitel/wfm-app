@@ -21,12 +21,15 @@
 		"typecheck:ci": "true"
 	},
 	"dependencies": {
+		"@daypilot/daypilot-lite-javascript": "6.3.0",
 		"@vueuse/core": "^14.x",
 		"@webitel/api-services": "~26.12",
 		"@webitel/ui-datalist": "~26.12",
 		"@webitel/ui-sdk": "~26.12",
 		"axios": "^1.18.1",
 		"clipboard-copy": "^4.0.1",
+		"date-fns": "^4.4.0",
+		"date-fns-tz": "^3.2.0",
 		"lodash-es": "^4.17.21",
 		"pinia": "^3.0.4",
 		"vue": "^3.5.x",
