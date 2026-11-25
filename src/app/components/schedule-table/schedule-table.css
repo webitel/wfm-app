@@ -1,0 +1,293 @@
+/* [Claude] QCalendar theming and the colours of Figma "PrimeVue Schedules Powered"
+   (resources timeline). The mockup uses raw colours, not ui-sdk tokens, so they are named here. */
+.schedule-table {
+	--schedule-table-row-height: 48px;
+	--schedule-table-forecast-height: 40px;
+	/* [Claude] Grid lines and the head (Figma: #e2e8f0 lines, #63738c text). */
+	--schedule-table-head-border: #e2e8f0;
+	--schedule-table-head-color: #63738c;
+	--schedule-table-head-off-background: #f8fafc;
+	/* [Claude] Day backgrounds: Figma cell set of the lanes. */
+	--schedule-table-cell-border: rgba(0, 0, 0, 0.05);
+	--schedule-table-cell-filled-border: rgba(255, 255, 255, 0.7);
+	--schedule-table-cell-empty-background: var(--content-wrapper-color);
+	--schedule-table-cell-working-background: #d5f6e0;
+	/* [Claude] Resize edges of a shift or pause in the Day view. */
+	--schedule-table-drag-handle: #24a850;
+	--schedule-table-cell-absence-background: #f9e3d2;
+	--schedule-table-cell-off-background: #f9d2d2;
+	--schedule-table-cell-locked-border: #e3e8f0;
+	--schedule-table-cell-locked-background: rgba(13, 166, 232, 0.05);
+	/* [Claude] Event chips: tinted background, darker marker. */
+	--schedule-table-chip-title-color: #334054;
+	--schedule-table-chip-subtitle-color: #63738c;
+	--schedule-table-chip-outlined-background: #ffffff;
+	--schedule-table-chip-orange-background: #fff2d6;
+	--schedule-table-chip-orange-marker: #f59e0a;
+	--schedule-table-chip-teal-background: #e0f5f5;
+	--schedule-table-chip-teal-marker: #148c8c;
+	--schedule-table-chip-blue-background: #e8f0fc;
+	--schedule-table-chip-blue-marker: #2663eb;
+	--schedule-table-chip-purple-background: #f2e8fc;
+	--schedule-table-chip-purple-marker: #9433eb;
+	--schedule-table-chip-red-marker: #db2626;
+	--schedule-table-chip-coral-marker: #ed590d;
+	/* [Claude] Figma: Components/Forcast/Item/Target and the planned-bar levels. */
+	--schedule-table-forecast-color: #e0e3eb;
+	--schedule-table-forecast-low-color: #e54c4c;
+	--schedule-table-forecast-medium-color: #e28136;
+	--schedule-table-forecast-high-color: #24a850;
+	/* [Claude] Figma: Components/Schedule table/Action bar/Wrapper/Background. */
+	--schedule-table-total-background: #f3f4f7;
+
+	/* [Claude] The resources column: 255px in the mockups. */
+	--calendar-resources-width: 255px;
+	--calendar-border: 1px solid var(--schedule-table-head-border);
+	--calendar-border-section: 1px solid var(--schedule-table-head-border);
+	--calendar-color: var(--text-main-color);
+	--calendar-background: var(--content-wrapper-color);
+	--calendar-disabled-date-color: var(--grey-lighten-1);
+	--calendar-disabled-date-background: var(--grey-lighten-5);
+
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+/* [Claude] Dark theme: the ui-sdk tokens above switch by themselves, so QCalendar's own
+   dark mode (`dark` prop, --calendar-*-dark) is not used; the mockup colours get dark pairs. */
+:root.theme--dark .schedule-table {
+	--schedule-table-head-border: var(--grey-darken-3);
+	--schedule-table-head-color: var(--grey-lighten-1);
+	--schedule-table-head-off-background: var(--grey-darken-4);
+	--schedule-table-cell-border: rgba(255, 255, 255, 0.05);
+	--schedule-table-cell-filled-border: rgba(0, 0, 0, 0.3);
+	--schedule-table-cell-working-background: #1d4a2c;
+	--schedule-table-drag-handle: #3ccf6e;
+	--schedule-table-cell-absence-background: #4a3424;
+	--schedule-table-cell-off-background: #4a2626;
+	--schedule-table-cell-locked-border: var(--grey-darken-3);
+	--schedule-table-cell-locked-background: rgba(13, 166, 232, 0.12);
+	--schedule-table-chip-title-color: #e2e8f0;
+	--schedule-table-chip-subtitle-color: var(--grey-lighten-1);
+	--schedule-table-chip-outlined-background: var(--grey-darken-4);
+	--schedule-table-chip-orange-background: #4d3a12;
+	--schedule-table-chip-teal-background: #12403f;
+	--schedule-table-chip-blue-background: #1a2d52;
+	--schedule-table-chip-purple-background: #36214d;
+	--calendar-disabled-date-color: var(--grey-darken-1);
+	--calendar-disabled-date-background: var(--grey-darken-4);
+	--schedule-table-forecast-color: var(--grey-darken-2);
+	--schedule-table-total-background: var(--grey-darken-4);
+}
+
+.schedule-table__grid {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+	overflow: auto;
+}
+
+.schedule-table--loading .schedule-table__grid > .q-calendar {
+	opacity: 0.5;
+}
+
+.schedule-table__loader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* [Claude] Figma "Resource area header": SemiBold 14px over the agents column. */
+.schedule-table__resources-title {
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	padding-left: 12px;
+	color: var(--schedule-table-head-color);
+	font-size: 14px;
+	font-weight: 600;
+}
+
+/* [Claude] QCalendar sizes the label to its content: stretch it over the agents column. */
+.schedule-table .q-calendar-scheduler__resource--text,
+.schedule-table .q-calendar-resource__resource--text {
+	flex: 1;
+	align-self: stretch;
+	padding: 0;
+}
+
+/* [Claude] Head: our rows draw their own lines; the month and day labels run over the next
+   columns, so the QCalendar head cells must not clip them. */
+.schedule-table .q-calendar-scheduler__head--day,
+.schedule-table .q-calendar-scheduler__head--resources,
+.schedule-table .q-calendar-resource__head--resources,
+.schedule-table .q-calendar-resource__head--interval {
+	overflow: visible;
+	padding: 0;
+	border: none;
+	background: var(--content-wrapper-color);
+}
+
+.schedule-table .q-calendar-scheduler__head--days__weekdays,
+.schedule-table .q-calendar-resource__head--intervals {
+	overflow: visible;
+}
+
+/* [Claude] Day view: the forecast hours lie over the interval cells (absolute), so the
+   expanded Forecast row gets its height here. */
+.schedule-table
+.q-calendar-resource__resource--intervals:has(.schedule-table-forecast-hours) {
+	min-height: var(--schedule-table-forecast-height);
+}
+
+.schedule-table .schedule-table-forecast--none {
+	background: transparent;
+}
+
+.schedule-table .schedule-table-forecast--low {
+	background: var(--schedule-table-forecast-low-color);
+}
+
+.schedule-table .schedule-table-forecast--medium {
+	background: var(--schedule-table-forecast-medium-color);
+}
+
+.schedule-table .schedule-table-forecast--high {
+	background: var(--schedule-table-forecast-high-color);
+}
+
+/* [Claude] Cells hold our own content: drop QCalendar's focus helper padding. */
+.schedule-table .q-calendar-scheduler__day {
+	padding: 0;
+}
+
+/* [Claude] Day view rows: the timeline lies over the hour cells, which keep the grid lines. */
+.schedule-table .q-calendar-resource__resource--intervals {
+	position: relative;
+	min-height: var(--schedule-table-row-height);
+}
+
+/* [Claude] ------------------------------------------------------------- Chip
+   Global, not scoped: Week / Month cells draw it as plain spans (no component per chip). */
+.schedule-table-chip {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+	box-sizing: border-box;
+	min-width: 0;
+	height: 20px;
+	padding: 2px 3px;
+	overflow: hidden;
+	border-radius: 4px;
+	background: var(--schedule-table-chip-background);
+	color: var(--schedule-table-chip-title-color);
+	text-align: left;
+	white-space: nowrap;
+}
+
+.schedule-table-chip::before {
+	content: "";
+	flex: 0 0 2px;
+	align-self: stretch;
+	margin: 2px 0;
+	border-radius: 1px;
+	background: var(--schedule-table-chip-marker);
+}
+
+.schedule-table-chip__content {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.schedule-table-chip__title,
+.schedule-table-chip__subtitle {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* [Claude] Figma Week / Month: SemiBold 9px, 10px with a second line of Medium 9px. */
+.schedule-table-chip__title {
+	font-size: 9px;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.schedule-table-chip__subtitle {
+	color: var(--schedule-table-chip-subtitle-color);
+	font-size: 9px;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.schedule-table-chip--two-lines {
+	height: 36px;
+}
+
+.schedule-table-chip--two-lines .schedule-table-chip__title {
+	font-size: 10px;
+}
+
+/* [Claude] Figma Day: 28px with one line, 36px with two; SemiBold 12px over Medium 11px. */
+.schedule-table-chip--md {
+	gap: 4px;
+	height: 28px;
+	padding: 2px 4px;
+}
+
+.schedule-table-chip--md.schedule-table-chip--two-lines {
+	height: 36px;
+}
+
+.schedule-table-chip--md .schedule-table-chip__title {
+	font-size: 12px;
+}
+
+.schedule-table-chip--md .schedule-table-chip__subtitle {
+	font-size: 11px;
+}
+
+.schedule-table-chip--orange {
+	--schedule-table-chip-background: var(
+		--schedule-table-chip-orange-background
+	);
+	--schedule-table-chip-marker: var(--schedule-table-chip-orange-marker);
+}
+
+.schedule-table-chip--teal {
+	--schedule-table-chip-background: var(--schedule-table-chip-teal-background);
+	--schedule-table-chip-marker: var(--schedule-table-chip-teal-marker);
+}
+
+.schedule-table-chip--blue {
+	--schedule-table-chip-background: var(--schedule-table-chip-blue-background);
+	--schedule-table-chip-marker: var(--schedule-table-chip-blue-marker);
+}
+
+.schedule-table-chip--purple {
+	--schedule-table-chip-background: var(
+		--schedule-table-chip-purple-background
+	);
+	--schedule-table-chip-marker: var(--schedule-table-chip-purple-marker);
+}
+
+.schedule-table-chip--red {
+	--schedule-table-chip-marker: var(--schedule-table-chip-red-marker);
+}
+
+.schedule-table-chip--coral {
+	--schedule-table-chip-marker: var(--schedule-table-chip-coral-marker);
+}
+
+.schedule-table-chip--outlined {
+	--schedule-table-chip-background: var(
+		--schedule-table-chip-outlined-background
+	);
+}
