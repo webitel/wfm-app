@@ -34,11 +34,11 @@
     </template>
     <template #duration="{ item }">
       <wt-timepicker
-        :model-value="minToSec(getDuration(item))"
+        :model-value="minToSec(getTimeRangeDuration(item))"
         :disabled="disableUserInput"
         format="hh:mm"
         no-label
-        @update:model-value="setDuration(item, secToMin($event))"
+        @update:model-value="setTimeRangeDuration(item, secToMin($event))"
       />
     </template>
   </wt-editable-list>
@@ -53,6 +53,8 @@ import { minToSec, secToMin } from '@webitel/api-services/scripts';
 import {
 	getDefaultShiftTemplateTime,
 	getShiftTemplateTimeRangeErrors,
+	getTimeRangeDuration,
+	setTimeRangeDuration,
 } from '@webitel/api-services/validations';
 import {
 	type CardValidationFields,
@@ -74,13 +76,6 @@ defineProps<{
 const { t } = useI18n();
 const { disableUserInput } = useUserAccessControl();
 
-const getDuration = (row: WfmShiftTemplateTime) =>
-	Math.max(0, (row.end ?? 0) - (row.start ?? 0));
-
-const setDuration = (row: WfmShiftTemplateTime, minutes: number) => {
-	row.end = (row.start ?? 0) + minutes;
-};
-
 const headers = computed(() => [
 	{
 		value: 'start',
@@ -98,7 +93,7 @@ const headers = computed(() => [
 		value: 'duration',
 		text: t('lookups.shiftTemplates.duration'),
 		width: '200px',
-		sortBy: getDuration,
+		sortBy: getTimeRangeDuration,
 	},
 ]);
 
