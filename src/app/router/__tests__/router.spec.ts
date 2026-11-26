@@ -71,8 +71,11 @@ describe('router', () => {
 
 	it('redirects to auth instead of trusting a token from the url', async () => {
 		localStorage.clear();
+		const onUnauthorized = vi.fn();
 		// router history reads the real location, so create it before stubbing
-		const router = await initRouter();
+		const router = await initRouter({
+			onUnauthorized,
+		});
 		const originalLocation = window.location;
 		Object.defineProperty(window, 'location', {
 			value: {
@@ -90,6 +93,7 @@ describe('router', () => {
 					`${import.meta.env.VITE_AUTH_URL}?redirectTo=${encodeURIComponent('https://webitel.test/wfm/')}`,
 				),
 			);
+			expect(onUnauthorized).toHaveBeenCalled();
 			expect(localStorage.getItem('access-token')).toBeNull();
 			expect(router.currentRoute.value.name).not.toBe('agents');
 		} finally {

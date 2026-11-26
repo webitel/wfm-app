@@ -41,7 +41,10 @@ const routes: Array<RouteRecordRaw> = [
 
 export let router = null;
 
-export const initRouter = async ({ beforeEach = [] } = {}) => {
+export const initRouter = async ({
+	beforeEach = [],
+	onUnauthorized = () => {},
+} = {}) => {
 	router = createRouter({
 		history: createWebHistory(import.meta.env.BASE_URL),
 		scrollBehavior() {
@@ -62,6 +65,8 @@ export const initRouter = async ({ beforeEach = [] } = {}) => {
 			// [https://webitel.atlassian.net/browse/WTEL-10705]
 			// only the stored token counts: `?accessToken=` is never trusted
 			if (!localStorage.getItem('access-token')) {
+				// forget which user notifications were already shown
+				onUnauthorized();
 				const desiredUrl = encodeURIComponent(window.location.href);
 				const authUrl = import.meta.env.VITE_AUTH_URL;
 				window.location.href = `${authUrl}?redirectTo=${desiredUrl}`;
