@@ -27,6 +27,7 @@
 		"@webitel/ui-sdk": "~26.12",
 		"axios": "^1.18.1",
 		"clipboard-copy": "^4.0.1",
+		"jszip": "^3.10.2",
 		"lodash-es": "^4.17.21",
 		"pinia": "^3.0.4",
 		"vue": "^3.5.x",
